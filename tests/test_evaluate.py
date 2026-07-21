@@ -166,9 +166,10 @@ class TestRoleEvaluation:
 class TestGroundTruthIsolation:
     def test_detection_modules_do_not_import_evaluate_gt_loader_in_detect(self):
         text = Path("detect_fraud.py").read_text()
-        assert "ground_truth_roles" not in text
         assert "load_ground_truth" not in text
         assert "from src.evaluate" not in text
+        assert "GROUND_TRUTH_FILE" not in text
+        assert "ground_truth_roles.csv" not in text
 
     def test_dashboard_does_not_load_gt_file(self):
         for path in [
@@ -179,8 +180,9 @@ class TestGroundTruthIsolation:
             Path("src/loader.py"),
         ]:
             text = path.read_text()
-            assert "ground_truth_roles.csv" not in text
             assert "load_ground_truth" not in text
+            assert "GROUND_TRUTH_FILE" not in text
+            assert "ground_truth_roles.csv" not in text
 
     def test_only_evaluate_module_loads_gt_file_reference(self):
         # src/evaluate.py and evaluate.py CLI / config path constant are allowed

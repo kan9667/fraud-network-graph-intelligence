@@ -5,17 +5,17 @@
     "density": 0.36,
     "internal_volume": 1959542,
     "members": [
-      "ACC0218",
+      "ACC0216",
+      "ACC0219",
+      "ACC0221",
+      "ACC0213",
       "ACC0215",
       "ACC0220",
       "ACC0222",
-      "ACC0221",
-      "ACC0217",
-      "ACC0219",
-      "ACC0223",
+      "ACC0218",
       "ACC0214",
-      "ACC0216",
-      "ACC0213"
+      "ACC0223",
+      "ACC0217"
     ],
     "risk_score": 48,
     "risk_level": "MEDIUM",
@@ -117,11 +117,11 @@
         ]
       },
       {
-        "account_id": "ACC0220",
+        "account_id": "ACC0219",
         "probable_role": "suspected_victim",
         "role_confidence": 80,
         "role_evidence": [
-          "Sent \u20b977,028 into the network but received nothing back from cluster accounts",
+          "Sent \u20b950,869 into the network but received nothing back from cluster accounts",
           "Sends to 1 account(s) in the cluster but receives from none",
           "Low network centrality \u2014 peripheral to the cluster structure",
           "No external destinations \u2014 funds flow into the cluster only"
@@ -139,11 +139,11 @@
         ]
       },
       {
-        "account_id": "ACC0219",
+        "account_id": "ACC0220",
         "probable_role": "suspected_victim",
         "role_confidence": 80,
         "role_evidence": [
-          "Sent \u20b950,869 into the network but received nothing back from cluster accounts",
+          "Sent \u20b977,028 into the network but received nothing back from cluster accounts",
           "Sends to 1 account(s) in the cluster but receives from none",
           "Low network centrality \u2014 peripheral to the cluster structure",
           "No external destinations \u2014 funds flow into the cluster only"
@@ -412,32 +412,32 @@
         "time_span_hours": 57.45
       },
       {
-        "source_account": "ACC0218",
-        "destination_account": "ACC0217",
+        "source_account": "ACC0216",
+        "destination_account": "ACC0214",
         "path": [
-          "ACC0218",
-          "ACC0214",
-          "ACC0213",
+          "ACC0216",
           "ACC0215",
-          "ACC0217"
+          "ACC0217",
+          "ACC0218",
+          "ACC0214"
         ],
         "total_volume": 87880,
-        "transaction_count": 7,
-        "time_span_hours": 9.05
+        "transaction_count": 5,
+        "time_span_hours": 37.0
       },
       {
-        "source_account": "ACC0218",
-        "destination_account": "ACC0216",
+        "source_account": "ACC0213",
+        "destination_account": "ACC0214",
         "path": [
-          "ACC0218",
-          "ACC0214",
           "ACC0213",
           "ACC0215",
-          "ACC0216"
+          "ACC0217",
+          "ACC0218",
+          "ACC0214"
         ],
         "total_volume": 87880,
         "transaction_count": 6,
-        "time_span_hours": 4.0667
+        "time_span_hours": 37.45
       }
     ]
   },
@@ -447,18 +447,18 @@
     "density": 0.32,
     "internal_volume": 2815219,
     "members": [
+      "ACC0205",
+      "ACC0206",
+      "ACC0201",
       "ACC0202",
       "ACC0212",
+      "ACC0203",
       "ACC0207",
       "ACC0208",
       "ACC0211",
-      "ACC0204",
-      "ACC0201",
-      "ACC0206",
-      "ACC0203",
+      "ACC0210",
       "ACC0209",
-      "ACC0205",
-      "ACC0210"
+      "ACC0204"
     ],
     "risk_score": 46,
     "risk_level": "MEDIUM",
@@ -586,22 +586,22 @@
         ]
       },
       {
-        "account_id": "ACC0209",
+        "account_id": "ACC0210",
         "probable_role": "suspected_victim",
         "role_confidence": 80,
         "role_evidence": [
-          "Sent \u20b9269,195 into the network but received nothing back from cluster accounts",
+          "Sent \u20b988,990 into the network but received nothing back from cluster accounts",
           "Sends to 1 account(s) in the cluster but receives from none",
           "Low network centrality \u2014 peripheral to the cluster structure",
           "No external destinations \u2014 funds flow into the cluster only"
         ]
       },
       {
-        "account_id": "ACC0210",
+        "account_id": "ACC0209",
         "probable_role": "suspected_victim",
         "role_confidence": 80,
         "role_evidence": [
-          "Sent \u20b988,990 into the network but received nothing back from cluster accounts",
+          "Sent \u20b9269,195 into the network but received nothing back from cluster accounts",
           "Sends to 1 account(s) in the cluster but receives from none",
           "Low network centrality \u2014 peripheral to the cluster structure",
           "No external destinations \u2014 funds flow into the cluster only"
@@ -896,15 +896,15 @@
     "density": 0.39,
     "internal_volume": 913243,
     "members": [
-      "ACC0247",
-      "ACC0243",
-      "ACC0244",
-      "ACC0246",
-      "ACC0239",
       "ACC0242",
-      "ACC0241",
+      "ACC0247",
+      "ACC0246",
       "ACC0240",
-      "ACC0245"
+      "ACC0243",
+      "ACC0241",
+      "ACC0244",
+      "ACC0245",
+      "ACC0239"
     ],
     "risk_score": 42,
     "risk_level": "MEDIUM",
@@ -989,22 +989,22 @@
         ]
       },
       {
-        "account_id": "ACC0244",
+        "account_id": "ACC0246",
         "probable_role": "suspected_victim",
         "role_confidence": 80,
         "role_evidence": [
-          "Sent \u20b927,014 into the network but received nothing back from cluster accounts",
+          "Sent \u20b998,284 into the network but received nothing back from cluster accounts",
           "Sends to 1 account(s) in the cluster but receives from none",
           "Low network centrality \u2014 peripheral to the cluster structure",
           "No external destinations \u2014 funds flow into the cluster only"
         ]
       },
       {
-        "account_id": "ACC0246",
+        "account_id": "ACC0244",
         "probable_role": "suspected_victim",
         "role_confidence": 80,
         "role_evidence": [
-          "Sent \u20b998,284 into the network but received nothing back from cluster accounts",
+          "Sent \u20b927,014 into the network but received nothing back from cluster accounts",
           "Sends to 1 account(s) in the cluster but receives from none",
           "Low network centrality \u2014 peripheral to the cluster structure",
           "No external destinations \u2014 funds flow into the cluster only"
@@ -1348,21 +1348,21 @@
     "density": 0.13,
     "internal_volume": 2185979,
     "members": [
-      "ACC0227",
-      "ACC0231",
-      "ACC0226",
-      "ACC0238",
-      "ACC0224",
-      "ACC0229",
-      "ACC0236",
       "ACC0233",
-      "ACC0228",
-      "ACC0230",
-      "ACC0235",
-      "ACC0232",
       "ACC0237",
+      "ACC0227",
+      "ACC0229",
+      "ACC0231",
+      "ACC0236",
+      "ACC0224",
+      "ACC0238",
+      "ACC0232",
+      "ACC0226",
+      "ACC0230",
       "ACC0234",
-      "ACC0225"
+      "ACC0225",
+      "ACC0235",
+      "ACC0228"
     ],
     "risk_score": 26,
     "risk_level": "LOW",
@@ -1426,39 +1426,23 @@
     "explanation": "This 15-account network shows no strong fraud signals. Activity patterns are consistent with normal organic behavior.",
     "account_profiles": [
       {
+        "account_id": "ACC0233",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0237",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
         "account_id": "ACC0227",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0231",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0226",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0238",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0224",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -1474,6 +1458,14 @@
         ]
       },
       {
+        "account_id": "ACC0231",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
         "account_id": "ACC0236",
         "probable_role": "unknown",
         "role_confidence": 0,
@@ -1482,7 +1474,7 @@
         ]
       },
       {
-        "account_id": "ACC0233",
+        "account_id": "ACC0224",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -1490,23 +1482,7 @@
         ]
       },
       {
-        "account_id": "ACC0228",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0230",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0235",
+        "account_id": "ACC0238",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -1522,7 +1498,15 @@
         ]
       },
       {
-        "account_id": "ACC0237",
+        "account_id": "ACC0226",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0230",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -1539,6 +1523,22 @@
       },
       {
         "account_id": "ACC0225",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0235",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0228",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -1783,20 +1783,20 @@
     "density": 0.21,
     "internal_volume": 261331,
     "members": [
-      "ACC0159",
-      "ACC0176",
-      "ACC0081",
       "ACC0172",
-      "ACC0163",
-      "ACC0162",
+      "ACC0070",
+      "ACC0081",
+      "ACC0159",
       "ACC0104",
-      "ACC0187",
-      "ACC0142",
       "ACC0168",
-      "ACC0097",
-      "ACC0110",
+      "ACC0162",
       "ACC0018",
-      "ACC0070"
+      "ACC0097",
+      "ACC0163",
+      "ACC0187",
+      "ACC0176",
+      "ACC0142",
+      "ACC0110"
     ],
     "risk_score": 22,
     "risk_level": "LOW",
@@ -1849,7 +1849,7 @@
     "explanation": "This 14-account network shows no strong fraud signals. Activity patterns are consistent with normal organic behavior.",
     "account_profiles": [
       {
-        "account_id": "ACC0159",
+        "account_id": "ACC0172",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -1857,7 +1857,7 @@
         ]
       },
       {
-        "account_id": "ACC0176",
+        "account_id": "ACC0070",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -1873,23 +1873,7 @@
         ]
       },
       {
-        "account_id": "ACC0172",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0163",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0162",
+        "account_id": "ACC0159",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -1905,22 +1889,6 @@
         ]
       },
       {
-        "account_id": "ACC0187",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0142",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
         "account_id": "ACC0168",
         "probable_role": "unknown",
         "role_confidence": 0,
@@ -1929,15 +1897,7 @@
         ]
       },
       {
-        "account_id": "ACC0097",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0110",
+        "account_id": "ACC0162",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -1953,7 +1913,47 @@
         ]
       },
       {
-        "account_id": "ACC0070",
+        "account_id": "ACC0097",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0163",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0187",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0176",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0142",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0110",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -2254,17 +2254,17 @@
     "density": 0.25,
     "internal_volume": 157647,
     "members": [
-      "ACC0095",
-      "ACC0055",
-      "ACC0032",
       "ACC0091",
-      "ACC0151",
-      "ACC0130",
-      "ACC0117",
       "ACC0092",
+      "ACC0055",
+      "ACC0117",
+      "ACC0095",
+      "ACC0151",
       "ACC0003",
-      "ACC0052",
-      "ACC0014"
+      "ACC0130",
+      "ACC0014",
+      "ACC0032",
+      "ACC0052"
     ],
     "risk_score": 19,
     "risk_level": "LOW",
@@ -2323,55 +2323,7 @@
     "explanation": "This 11-account network shows no strong fraud signals. Activity patterns are consistent with normal organic behavior.",
     "account_profiles": [
       {
-        "account_id": "ACC0095",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0055",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0032",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
         "account_id": "ACC0091",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0151",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0130",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0117",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -2387,6 +2339,38 @@
         ]
       },
       {
+        "account_id": "ACC0055",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0117",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0095",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0151",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
         "account_id": "ACC0003",
         "probable_role": "unknown",
         "role_confidence": 0,
@@ -2395,7 +2379,7 @@
         ]
       },
       {
-        "account_id": "ACC0052",
+        "account_id": "ACC0130",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -2404,6 +2388,22 @@
       },
       {
         "account_id": "ACC0014",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0032",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0052",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -2702,16 +2702,16 @@
     "density": 0.27,
     "internal_volume": 87347,
     "members": [
-      "ACC0077",
-      "ACC0139",
-      "ACC0057",
       "ACC0157",
-      "ACC0129",
       "ACC0128",
-      "ACC0073",
+      "ACC0129",
       "ACC0152",
+      "ACC0143",
+      "ACC0057",
+      "ACC0073",
+      "ACC0077",
       "ACC0086",
-      "ACC0143"
+      "ACC0139"
     ],
     "risk_score": 19,
     "risk_level": "LOW",
@@ -2764,39 +2764,7 @@
     "explanation": "This 10-account network shows no strong fraud signals. Activity patterns are consistent with normal organic behavior.",
     "account_profiles": [
       {
-        "account_id": "ACC0077",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0139",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0057",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
         "account_id": "ACC0157",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0129",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -2812,7 +2780,7 @@
         ]
       },
       {
-        "account_id": "ACC0073",
+        "account_id": "ACC0129",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -2828,6 +2796,38 @@
         ]
       },
       {
+        "account_id": "ACC0143",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0057",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0073",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0077",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
         "account_id": "ACC0086",
         "probable_role": "unknown",
         "role_confidence": 0,
@@ -2836,7 +2836,7 @@
         ]
       },
       {
-        "account_id": "ACC0143",
+        "account_id": "ACC0139",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -3042,18 +3042,6 @@
         "time_span_hours": 1123.9806
       },
       {
-        "source_account": "ACC0022",
-        "destination_account": "ACC0008",
-        "path": [
-          "ACC0022",
-          "ACC0128",
-          "ACC0008"
-        ],
-        "total_volume": 13041,
-        "transaction_count": 2,
-        "time_span_hours": 0.0
-      },
-      {
         "source_account": "ACC0015",
         "destination_account": "ACC0008",
         "path": [
@@ -3072,6 +3060,18 @@
           "ACC0114",
           "ACC0077",
           "ACC0036"
+        ],
+        "total_volume": 13041,
+        "transaction_count": 2,
+        "time_span_hours": 0.0
+      },
+      {
+        "source_account": "ACC0022",
+        "destination_account": "ACC0008",
+        "path": [
+          "ACC0022",
+          "ACC0128",
+          "ACC0008"
         ],
         "total_volume": 13041,
         "transaction_count": 2,
@@ -3121,72 +3121,72 @@
     "density": 0.06,
     "internal_volume": 1435829,
     "members": [
-      "ACC0039",
-      "ACC0196",
-      "ACC0026",
-      "ACC0122",
-      "ACC0112",
-      "ACC0042",
-      "ACC0060",
-      "ACC0090",
-      "ACC0148",
-      "ACC0033",
-      "ACC0074",
-      "ACC0102",
-      "ACC0030",
-      "ACC0118",
-      "ACC0144",
-      "ACC0028",
-      "ACC0140",
-      "ACC0145",
-      "ACC0007",
-      "ACC0071",
-      "ACC0050",
-      "ACC0192",
-      "ACC0184",
-      "ACC0189",
-      "ACC0156",
+      "ACC0120",
+      "ACC0107",
       "ACC0199",
-      "ACC0024",
-      "ACC0036",
-      "ACC0063",
+      "ACC0177",
+      "ACC0189",
       "ACC0056",
-      "ACC0006",
+      "ACC0094",
+      "ACC0184",
+      "ACC0050",
+      "ACC0042",
+      "ACC0145",
+      "ACC0030",
+      "ACC0008",
+      "ACC0106",
+      "ACC0113",
       "ACC0011",
       "ACC0101",
-      "ACC0166",
-      "ACC0094",
-      "ACC0177",
-      "ACC0185",
+      "ACC0028",
       "ACC0017",
-      "ACC0096",
-      "ACC0147",
-      "ACC0067",
-      "ACC0008",
-      "ACC0107",
-      "ACC0075",
-      "ACC0085",
-      "ACC0194",
-      "ACC0111",
-      "ACC0161",
-      "ACC0029",
-      "ACC0154",
-      "ACC0066",
-      "ACC0121",
-      "ACC0188",
-      "ACC0180",
-      "ACC0064",
-      "ACC0005",
-      "ACC0113",
-      "ACC0084",
-      "ACC0195",
-      "ACC0179",
-      "ACC0120",
-      "ACC0106",
-      "ACC0037",
-      "ACC0119",
+      "ACC0122",
       "ACC0048",
-      "ACC0025"
+      "ACC0024",
+      "ACC0085",
+      "ACC0112",
+      "ACC0029",
+      "ACC0071",
+      "ACC0144",
+      "ACC0148",
+      "ACC0063",
+      "ACC0096",
+      "ACC0185",
+      "ACC0033",
+      "ACC0140",
+      "ACC0194",
+      "ACC0161",
+      "ACC0111",
+      "ACC0102",
+      "ACC0195",
+      "ACC0036",
+      "ACC0060",
+      "ACC0090",
+      "ACC0156",
+      "ACC0064",
+      "ACC0066",
+      "ACC0118",
+      "ACC0166",
+      "ACC0067",
+      "ACC0147",
+      "ACC0025",
+      "ACC0005",
+      "ACC0121",
+      "ACC0192",
+      "ACC0084",
+      "ACC0179",
+      "ACC0074",
+      "ACC0075",
+      "ACC0119",
+      "ACC0026",
+      "ACC0196",
+      "ACC0154",
+      "ACC0180",
+      "ACC0037",
+      "ACC0039",
+      "ACC0006",
+      "ACC0188",
+      "ACC0007"
     ],
     "risk_score": 18,
     "risk_level": "LOW",
@@ -3245,7 +3245,7 @@
     "explanation": "This 66-account network shows no strong fraud signals. Activity patterns are consistent with normal organic behavior.",
     "account_profiles": [
       {
-        "account_id": "ACC0039",
+        "account_id": "ACC0120",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -3253,191 +3253,7 @@
         ]
       },
       {
-        "account_id": "ACC0196",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0026",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0122",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0112",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0042",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0060",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0090",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0148",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0033",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0074",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0102",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0030",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0118",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0144",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0028",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0140",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0145",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0007",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0071",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0050",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0192",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0184",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0189",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0156",
+        "account_id": "ACC0107",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -3453,7 +3269,7 @@
         ]
       },
       {
-        "account_id": "ACC0024",
+        "account_id": "ACC0177",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -3461,15 +3277,7 @@
         ]
       },
       {
-        "account_id": "ACC0036",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0063",
+        "account_id": "ACC0189",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -3485,7 +3293,71 @@
         ]
       },
       {
-        "account_id": "ACC0006",
+        "account_id": "ACC0094",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0184",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0050",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0042",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0145",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0030",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0008",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0106",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0113",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -3509,31 +3381,7 @@
         ]
       },
       {
-        "account_id": "ACC0166",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0094",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0177",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0185",
+        "account_id": "ACC0028",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -3549,207 +3397,7 @@
         ]
       },
       {
-        "account_id": "ACC0096",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0147",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0067",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0008",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0107",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0075",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0085",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0194",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0111",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0161",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0029",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0154",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0066",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0121",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0188",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0180",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0064",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0005",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0113",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0084",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0195",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0179",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0120",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0106",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0037",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0119",
+        "account_id": "ACC0122",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -3765,7 +3413,359 @@
         ]
       },
       {
+        "account_id": "ACC0024",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0085",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0112",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0029",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0071",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0144",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0148",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0063",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0096",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0185",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0033",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0140",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0194",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0161",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0111",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0102",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0195",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0036",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0060",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0090",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0156",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0064",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0066",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0118",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0166",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0067",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0147",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
         "account_id": "ACC0025",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0005",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0121",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0192",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0084",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0179",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0074",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0075",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0119",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0026",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0196",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0154",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0180",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0037",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0039",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0006",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0188",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0007",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -3937,114 +3937,130 @@
     },
     "money_flow_paths": [
       {
-        "source_account": "ACC0101",
-        "destination_account": "ACC0034",
-        "path": [
-          "ACC0101",
-          "ACC0034"
-        ],
-        "total_volume": 19998,
-        "transaction_count": 1,
-        "time_span_hours": 0.0
-      },
-      {
-        "source_account": "ACC0024",
+        "source_account": "ACC0197",
         "destination_account": "ACC0158",
         "path": [
+          "ACC0197",
           "ACC0024",
           "ACC0158"
         ],
-        "total_volume": 19966,
-        "transaction_count": 1,
+        "total_volume": 13700,
+        "transaction_count": 2,
         "time_span_hours": 0.0
       },
       {
-        "source_account": "ACC0180",
-        "destination_account": "ACC0138",
-        "path": [
-          "ACC0180",
-          "ACC0138"
-        ],
-        "total_volume": 19958,
-        "transaction_count": 1,
-        "time_span_hours": 0.0
-      },
-      {
-        "source_account": "ACC0180",
-        "destination_account": "ACC0160",
-        "path": [
-          "ACC0180",
-          "ACC0160"
-        ],
-        "total_volume": 19753,
-        "transaction_count": 1,
-        "time_span_hours": 0.0
-      },
-      {
-        "source_account": "ACC0085",
-        "destination_account": "ACC0078",
-        "path": [
-          "ACC0085",
-          "ACC0078"
-        ],
-        "total_volume": 19586,
-        "transaction_count": 1,
-        "time_span_hours": 0.0
-      },
-      {
-        "source_account": "ACC0196",
-        "destination_account": "ACC0020",
-        "path": [
-          "ACC0196",
-          "ACC0020"
-        ],
-        "total_volume": 19306,
-        "transaction_count": 1,
-        "time_span_hours": 0.0
-      },
-      {
-        "source_account": "ACC0180",
-        "destination_account": "ACC0091",
-        "path": [
-          "ACC0180",
-          "ACC0091"
-        ],
-        "total_volume": 19100,
-        "transaction_count": 1,
-        "time_span_hours": 0.0
-      },
-      {
-        "source_account": "ACC0101",
-        "destination_account": "ACC0198",
-        "path": [
-          "ACC0101",
-          "ACC0198"
-        ],
-        "total_volume": 19095,
-        "transaction_count": 1,
-        "time_span_hours": 0.0
-      },
-      {
-        "source_account": "ACC0064",
+        "source_account": "ACC0197",
         "destination_account": "ACC0072",
         "path": [
+          "ACC0197",
           "ACC0064",
           "ACC0072"
         ],
-        "total_volume": 18787,
-        "transaction_count": 1,
+        "total_volume": 12132,
+        "transaction_count": 2,
         "time_span_hours": 0.0
       },
       {
-        "source_account": "ACC0192",
-        "destination_account": "ACC0133",
+        "source_account": "ACC0197",
+        "destination_account": "ACC0153",
         "path": [
-          "ACC0192",
-          "ACC0133"
+          "ACC0197",
+          "ACC0024",
+          "ACC0153"
         ],
-        "total_volume": 18784,
-        "transaction_count": 1,
+        "total_volume": 11130,
+        "transaction_count": 2,
         "time_span_hours": 0.0
+      },
+      {
+        "source_account": "ACC0197",
+        "destination_account": "ACC0015",
+        "path": [
+          "ACC0197",
+          "ACC0024",
+          "ACC0015"
+        ],
+        "total_volume": 8122,
+        "transaction_count": 2,
+        "time_span_hours": 1024.579
+      },
+      {
+        "source_account": "ACC0197",
+        "destination_account": "ACC0125",
+        "path": [
+          "ACC0197",
+          "ACC0064",
+          "ACC0195",
+          "ACC0125"
+        ],
+        "total_volume": 12132,
+        "transaction_count": 3,
+        "time_span_hours": 0.0
+      },
+      {
+        "source_account": "ACC0197",
+        "destination_account": "ACC0137",
+        "path": [
+          "ACC0197",
+          "ACC0064",
+          "ACC0118",
+          "ACC0137"
+        ],
+        "total_volume": 11717,
+        "transaction_count": 3,
+        "time_span_hours": 0.0
+      },
+      {
+        "source_account": "ACC0197",
+        "destination_account": "ACC0057",
+        "path": [
+          "ACC0197",
+          "ACC0064",
+          "ACC0195",
+          "ACC0057"
+        ],
+        "total_volume": 10071,
+        "transaction_count": 3,
+        "time_span_hours": 1346.7282
+      },
+      {
+        "source_account": "ACC0197",
+        "destination_account": "ACC0135",
+        "path": [
+          "ACC0197",
+          "ACC0064",
+          "ACC0195",
+          "ACC0135"
+        ],
+        "total_volume": 9773,
+        "transaction_count": 3,
+        "time_span_hours": 0.0
+      },
+      {
+        "source_account": "ACC0197",
+        "destination_account": "ACC0159",
+        "path": [
+          "ACC0197",
+          "ACC0064",
+          "ACC0037",
+          "ACC0159"
+        ],
+        "total_volume": 3672,
+        "transaction_count": 3,
+        "time_span_hours": 767.8141
+      },
+      {
+        "source_account": "ACC0197",
+        "destination_account": "ACC0183",
+        "path": [
+          "ACC0197",
+          "ACC0064",
+          "ACC0037",
+          "ACC0183"
+        ],
+        "total_volume": 3672,
+        "transaction_count": 3,
+        "time_span_hours": 2848.5187
       }
     ]
   },
@@ -4054,29 +4070,29 @@
     "density": 0.14,
     "internal_volume": 488702,
     "members": [
-      "ACC0065",
-      "ACC0127",
-      "ACC0167",
-      "ACC0045",
-      "ACC0088",
-      "ACC0169",
-      "ACC0174",
-      "ACC0049",
-      "ACC0079",
+      "ACC0034",
+      "ACC0010",
+      "ACC0141",
+      "ACC0132",
       "ACC0001",
-      "ACC0023",
+      "ACC0169",
+      "ACC0054",
+      "ACC0088",
+      "ACC0044",
+      "ACC0174",
       "ACC0043",
       "ACC0191",
-      "ACC0141",
       "ACC0123",
-      "ACC0132",
-      "ACC0010",
+      "ACC0127",
+      "ACC0167",
+      "ACC0049",
+      "ACC0065",
       "ACC0013",
-      "ACC0054",
-      "ACC0034",
-      "ACC0105",
-      "ACC0044",
+      "ACC0079",
       "ACC0019",
+      "ACC0023",
+      "ACC0105",
+      "ACC0045",
       "ACC0041"
     ],
     "risk_score": 18,
@@ -4130,7 +4146,7 @@
     "explanation": "This 24-account network shows no strong fraud signals. Activity patterns are consistent with normal organic behavior.",
     "account_profiles": [
       {
-        "account_id": "ACC0065",
+        "account_id": "ACC0034",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -4138,7 +4154,7 @@
         ]
       },
       {
-        "account_id": "ACC0127",
+        "account_id": "ACC0010",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -4146,7 +4162,7 @@
         ]
       },
       {
-        "account_id": "ACC0167",
+        "account_id": "ACC0141",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -4154,47 +4170,7 @@
         ]
       },
       {
-        "account_id": "ACC0045",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0088",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0169",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0174",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0049",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0079",
+        "account_id": "ACC0132",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -4210,7 +4186,39 @@
         ]
       },
       {
-        "account_id": "ACC0023",
+        "account_id": "ACC0169",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0054",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0088",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0044",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0174",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -4234,14 +4242,6 @@
         ]
       },
       {
-        "account_id": "ACC0141",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
         "account_id": "ACC0123",
         "probable_role": "unknown",
         "role_confidence": 0,
@@ -4250,7 +4250,7 @@
         ]
       },
       {
-        "account_id": "ACC0132",
+        "account_id": "ACC0127",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -4258,7 +4258,23 @@
         ]
       },
       {
-        "account_id": "ACC0010",
+        "account_id": "ACC0167",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0049",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0065",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -4274,7 +4290,7 @@
         ]
       },
       {
-        "account_id": "ACC0054",
+        "account_id": "ACC0079",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -4282,7 +4298,15 @@
         ]
       },
       {
-        "account_id": "ACC0034",
+        "account_id": "ACC0019",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0023",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -4298,15 +4322,7 @@
         ]
       },
       {
-        "account_id": "ACC0044",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0019",
+        "account_id": "ACC0045",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -4486,126 +4502,125 @@
     },
     "money_flow_paths": [
       {
-        "source_account": "ACC0153",
-        "destination_account": "ACC0115",
-        "path": [
-          "ACC0153",
-          "ACC0019",
-          "ACC0115"
-        ],
-        "total_volume": 16203,
-        "transaction_count": 2,
-        "time_span_hours": 516.1485
-      },
-      {
-        "source_account": "ACC0073",
-        "destination_account": "ACC0186",
-        "path": [
-          "ACC0073",
-          "ACC0174",
-          "ACC0186"
-        ],
-        "total_volume": 13522,
-        "transaction_count": 2,
-        "time_span_hours": 0.0
-      },
-      {
-        "source_account": "ACC0153",
-        "destination_account": "ACC0096",
-        "path": [
-          "ACC0153",
-          "ACC0019",
-          "ACC0096"
-        ],
-        "total_volume": 13462,
-        "transaction_count": 2,
-        "time_span_hours": 2637.4801
-      },
-      {
-        "source_account": "ACC0039",
-        "destination_account": "ACC0183",
-        "path": [
-          "ACC0039",
-          "ACC0141",
-          "ACC0183"
-        ],
-        "total_volume": 11155,
-        "transaction_count": 2,
-        "time_span_hours": 0.0
-      },
-      {
-        "source_account": "ACC0039",
-        "destination_account": "ACC0139",
-        "path": [
-          "ACC0039",
-          "ACC0141",
-          "ACC0139"
-        ],
-        "total_volume": 10014,
-        "transaction_count": 2,
-        "time_span_hours": 0.0
-      },
-      {
-        "source_account": "ACC0073",
-        "destination_account": "ACC0053",
-        "path": [
-          "ACC0073",
-          "ACC0174",
-          "ACC0053"
-        ],
-        "total_volume": 9317,
-        "transaction_count": 2,
-        "time_span_hours": 689.4865
-      },
-      {
-        "source_account": "ACC0153",
-        "destination_account": "ACC0116",
-        "path": [
-          "ACC0153",
-          "ACC0019",
-          "ACC0116"
-        ],
-        "total_volume": 6157,
-        "transaction_count": 2,
-        "time_span_hours": 1671.2492
-      },
-      {
-        "source_account": "ACC0055",
+        "source_account": "ACC0128",
         "destination_account": "ACC0179",
         "path": [
-          "ACC0055",
-          "ACC0049",
+          "ACC0128",
+          "ACC0191",
           "ACC0179"
         ],
-        "total_volume": 4344,
-        "transaction_count": 2,
-        "time_span_hours": 1269.1032
-      },
-      {
-        "source_account": "ACC0039",
-        "destination_account": "ACC0113",
-        "path": [
-          "ACC0039",
-          "ACC0141",
-          "ACC0041",
-          "ACC0113"
-        ],
-        "total_volume": 13833,
-        "transaction_count": 3,
+        "total_volume": 17233,
+        "transaction_count": 4,
         "time_span_hours": 0.0
       },
       {
-        "source_account": "ACC0055",
-        "destination_account": "ACC0113",
+        "source_account": "ACC0046",
+        "destination_account": "ACC0102",
         "path": [
-          "ACC0055",
-          "ACC0088",
-          "ACC0041",
-          "ACC0113"
+          "ACC0046",
+          "ACC0010",
+          "ACC0102"
         ],
-        "total_volume": 12625,
+        "total_volume": 16732,
+        "transaction_count": 2,
+        "time_span_hours": 2094.6337
+      },
+      {
+        "source_account": "ACC0046",
+        "destination_account": "ACC0036",
+        "path": [
+          "ACC0046",
+          "ACC0010",
+          "ACC0036"
+        ],
+        "total_volume": 11413,
+        "transaction_count": 2,
+        "time_span_hours": 1621.658
+      },
+      {
+        "source_account": "ACC0018",
+        "destination_account": "ACC0086",
+        "path": [
+          "ACC0018",
+          "ACC0105",
+          "ACC0086"
+        ],
+        "total_volume": 11020,
+        "transaction_count": 2,
+        "time_span_hours": 0.0
+      },
+      {
+        "source_account": "ACC0018",
+        "destination_account": "ACC0175",
+        "path": [
+          "ACC0018",
+          "ACC0023",
+          "ACC0175"
+        ],
+        "total_volume": 10972,
+        "transaction_count": 2,
+        "time_span_hours": 1395.1603
+      },
+      {
+        "source_account": "ACC0101",
+        "destination_account": "ACC0061",
+        "path": [
+          "ACC0101",
+          "ACC0034",
+          "ACC0061"
+        ],
+        "total_volume": 10057,
+        "transaction_count": 2,
+        "time_span_hours": 0.0
+      },
+      {
+        "source_account": "ACC0101",
+        "destination_account": "ACC0139",
+        "path": [
+          "ACC0101",
+          "ACC0034",
+          "ACC0139"
+        ],
+        "total_volume": 8713,
+        "transaction_count": 2,
+        "time_span_hours": 0.0
+      },
+      {
+        "source_account": "ACC0018",
+        "destination_account": "ACC0024",
+        "path": [
+          "ACC0018",
+          "ACC0105",
+          "ACC0024"
+        ],
+        "total_volume": 7862,
+        "transaction_count": 2,
+        "time_span_hours": 0.0
+      },
+      {
+        "source_account": "ACC0101",
+        "destination_account": "ACC0120",
+        "path": [
+          "ACC0101",
+          "ACC0034",
+          "ACC0132",
+          "ACC0120"
+        ],
+        "total_volume": 14112,
         "transaction_count": 3,
-        "time_span_hours": 278.3783
+        "time_span_hours": 158.6726
+      },
+      {
+        "source_account": "ACC0018",
+        "destination_account": "ACC0112",
+        "path": [
+          "ACC0018",
+          "ACC0023",
+          "ACC0112"
+        ],
+        "total_volume": 3968,
+        "transaction_count": 2,
+        "time_span_hours": 1117.6387
       }
     ]
   },
@@ -4615,17 +4630,17 @@
     "density": 0.22,
     "internal_volume": 163904,
     "members": [
-      "ACC0137",
-      "ACC0015",
       "ACC0083",
-      "ACC0062",
-      "ACC0098",
-      "ACC0100",
-      "ACC0164",
-      "ACC0173",
       "ACC0002",
+      "ACC0146",
       "ACC0171",
-      "ACC0146"
+      "ACC0098",
+      "ACC0062",
+      "ACC0100",
+      "ACC0015",
+      "ACC0137",
+      "ACC0164",
+      "ACC0173"
     ],
     "risk_score": 17,
     "risk_level": "LOW",
@@ -4678,22 +4693,6 @@
     "explanation": "This 11-account network shows no strong fraud signals. Activity patterns are consistent with normal organic behavior.",
     "account_profiles": [
       {
-        "account_id": "ACC0137",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0015",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
         "account_id": "ACC0083",
         "probable_role": "unknown",
         "role_confidence": 0,
@@ -4702,7 +4701,23 @@
         ]
       },
       {
-        "account_id": "ACC0062",
+        "account_id": "ACC0002",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0146",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0171",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -4718,7 +4733,31 @@
         ]
       },
       {
+        "account_id": "ACC0062",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
         "account_id": "ACC0100",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0015",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0137",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -4735,30 +4774,6 @@
       },
       {
         "account_id": "ACC0173",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0002",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0171",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0146",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -5060,18 +5075,18 @@
       "ACC0076",
       "ACC0160",
       "ACC0038",
-      "ACC0059",
-      "ACC0047",
-      "ACC0197",
-      "ACC0035",
       "ACC0016",
-      "ACC0175",
-      "ACC0116",
-      "ACC0165",
       "ACC0051",
+      "ACC0047",
+      "ACC0059",
+      "ACC0175",
       "ACC0020",
+      "ACC0035",
+      "ACC0165",
       "ACC0155",
       "ACC0186",
+      "ACC0197",
+      "ACC0116",
       "ACC0093"
     ],
     "risk_score": 16,
@@ -5149,63 +5164,7 @@
         ]
       },
       {
-        "account_id": "ACC0059",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0047",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0197",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0035",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
         "account_id": "ACC0016",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0175",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0116",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0165",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -5221,7 +5180,47 @@
         ]
       },
       {
+        "account_id": "ACC0047",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0059",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0175",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
         "account_id": "ACC0020",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0035",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0165",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -5238,6 +5237,22 @@
       },
       {
         "account_id": "ACC0186",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0197",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0116",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -5544,36 +5559,36 @@
     "density": 0.11,
     "internal_volume": 540549,
     "members": [
-      "ACC0009",
-      "ACC0078",
-      "ACC0069",
-      "ACC0153",
-      "ACC0108",
-      "ACC0080",
-      "ACC0004",
-      "ACC0068",
-      "ACC0190",
-      "ACC0012",
-      "ACC0099",
-      "ACC0021",
-      "ACC0109",
-      "ACC0103",
-      "ACC0089",
-      "ACC0193",
       "ACC0170",
-      "ACC0082",
-      "ACC0134",
-      "ACC0158",
-      "ACC0178",
-      "ACC0133",
+      "ACC0012",
+      "ACC0078",
+      "ACC0009",
       "ACC0053",
-      "ACC0138",
-      "ACC0022",
+      "ACC0133",
+      "ACC0082",
+      "ACC0004",
+      "ACC0178",
+      "ACC0103",
+      "ACC0109",
+      "ACC0190",
+      "ACC0108",
       "ACC0087",
       "ACC0072",
-      "ACC0061",
       "ACC0031",
-      "ACC0135"
+      "ACC0080",
+      "ACC0089",
+      "ACC0022",
+      "ACC0135",
+      "ACC0099",
+      "ACC0158",
+      "ACC0061",
+      "ACC0193",
+      "ACC0069",
+      "ACC0153",
+      "ACC0021",
+      "ACC0134",
+      "ACC0068",
+      "ACC0138"
     ],
     "risk_score": 15,
     "risk_level": "LOW",
@@ -5626,71 +5641,7 @@
     "explanation": "This 30-account network shows no strong fraud signals. Activity patterns are consistent with normal organic behavior.",
     "account_profiles": [
       {
-        "account_id": "ACC0009",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0078",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0069",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0153",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0108",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0080",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0004",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0068",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0190",
+        "account_id": "ACC0170",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -5706,7 +5657,7 @@
         ]
       },
       {
-        "account_id": "ACC0099",
+        "account_id": "ACC0078",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -5714,87 +5665,7 @@
         ]
       },
       {
-        "account_id": "ACC0021",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0109",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0103",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0089",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0193",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0170",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0082",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0134",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0158",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0178",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0133",
+        "account_id": "ACC0009",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -5810,7 +5681,7 @@
         ]
       },
       {
-        "account_id": "ACC0138",
+        "account_id": "ACC0133",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -5818,7 +5689,55 @@
         ]
       },
       {
-        "account_id": "ACC0022",
+        "account_id": "ACC0082",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0004",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0178",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0103",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0109",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0190",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0108",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -5842,14 +5761,6 @@
         ]
       },
       {
-        "account_id": "ACC0061",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
         "account_id": "ACC0031",
         "probable_role": "unknown",
         "role_confidence": 0,
@@ -5858,7 +5769,111 @@
         ]
       },
       {
+        "account_id": "ACC0080",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0089",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0022",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
         "account_id": "ACC0135",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0099",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0158",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0061",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0193",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0069",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0153",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0021",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0134",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0068",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0138",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -6030,40 +6045,40 @@
     },
     "money_flow_paths": [
       {
-        "source_account": "ACC0192",
-        "destination_account": "ACC0093",
+        "source_account": "ACC0024",
+        "destination_account": "ACC0124",
         "path": [
-          "ACC0192",
-          "ACC0133",
-          "ACC0093"
+          "ACC0024",
+          "ACC0158",
+          "ACC0124"
         ],
-        "total_volume": 16834,
+        "total_volume": 16486,
         "transaction_count": 2,
-        "time_span_hours": 0.0
+        "time_span_hours": 2967.3418
       },
       {
-        "source_account": "ACC0155",
-        "destination_account": "ACC0008",
+        "source_account": "ACC0183",
+        "destination_account": "ACC0128",
         "path": [
-          "ACC0155",
-          "ACC0087",
-          "ACC0008"
+          "ACC0183",
+          "ACC0022",
+          "ACC0128"
         ],
-        "total_volume": 16697,
+        "total_volume": 14718,
         "transaction_count": 2,
-        "time_span_hours": 1947.5718
+        "time_span_hours": 586.0028
       },
       {
-        "source_account": "ACC0192",
-        "destination_account": "ACC0167",
+        "source_account": "ACC0183",
+        "destination_account": "ACC0062",
         "path": [
-          "ACC0192",
-          "ACC0133",
-          "ACC0167"
+          "ACC0183",
+          "ACC0022",
+          "ACC0062"
         ],
-        "total_volume": 14990,
+        "total_volume": 13817,
         "transaction_count": 2,
-        "time_span_hours": 0.0
+        "time_span_hours": 512.3258
       },
       {
         "source_account": "ACC0024",
@@ -6078,28 +6093,29 @@
         "time_span_hours": 0.0
       },
       {
-        "source_account": "ACC0027",
-        "destination_account": "ACC0016",
+        "source_account": "ACC0183",
+        "destination_account": "ACC0198",
         "path": [
-          "ACC0027",
-          "ACC0004",
-          "ACC0016"
+          "ACC0183",
+          "ACC0022",
+          "ACC0198"
         ],
-        "total_volume": 7783,
+        "total_volume": 10178,
         "transaction_count": 2,
-        "time_span_hours": 0.0
+        "time_span_hours": 1029.6156
       },
       {
-        "source_account": "ACC0155",
-        "destination_account": "ACC0165",
+        "source_account": "ACC0024",
+        "destination_account": "ACC0176",
         "path": [
-          "ACC0155",
-          "ACC0087",
-          "ACC0165"
+          "ACC0024",
+          "ACC0158",
+          "ACC0190",
+          "ACC0176"
         ],
-        "total_volume": 6237,
-        "transaction_count": 2,
-        "time_span_hours": 1980.6869
+        "total_volume": 17748,
+        "transaction_count": 3,
+        "time_span_hours": 1027.7749
       },
       {
         "source_account": "ACC0024",
@@ -6138,17 +6154,16 @@
         "time_span_hours": 1596.2016
       },
       {
-        "source_account": "ACC0192",
-        "destination_account": "ACC0160",
+        "source_account": "ACC0024",
+        "destination_account": "ACC0002",
         "path": [
-          "ACC0192",
-          "ACC0133",
-          "ACC0134",
-          "ACC0160"
+          "ACC0024",
+          "ACC0158",
+          "ACC0002"
         ],
-        "total_volume": 12469,
-        "transaction_count": 5,
-        "time_span_hours": 0.0
+        "total_volume": 3096,
+        "transaction_count": 2,
+        "time_span_hours": 205.6411
       }
     ]
   },
@@ -6158,24 +6173,24 @@
     "density": 0.18,
     "internal_volume": 279977,
     "members": [
-      "ACC0181",
       "ACC0131",
-      "ACC0182",
-      "ACC0198",
-      "ACC0125",
-      "ACC0027",
-      "ACC0040",
-      "ACC0046",
-      "ACC0136",
-      "ACC0183",
-      "ACC0115",
-      "ACC0124",
       "ACC0150",
+      "ACC0046",
+      "ACC0149",
       "ACC0200",
-      "ACC0114",
+      "ACC0183",
       "ACC0058",
+      "ACC0182",
+      "ACC0114",
+      "ACC0198",
+      "ACC0040",
+      "ACC0124",
+      "ACC0027",
+      "ACC0181",
+      "ACC0115",
       "ACC0126",
-      "ACC0149"
+      "ACC0136",
+      "ACC0125"
     ],
     "risk_score": 15,
     "risk_level": "LOW",
@@ -6228,95 +6243,7 @@
     "explanation": "This 18-account network shows no strong fraud signals. Activity patterns are consistent with normal organic behavior.",
     "account_profiles": [
       {
-        "account_id": "ACC0181",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
         "account_id": "ACC0131",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0182",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0198",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0125",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0027",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0040",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0046",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0136",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0183",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0115",
-        "probable_role": "unknown",
-        "role_confidence": 0,
-        "role_evidence": [
-          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
-        ]
-      },
-      {
-        "account_id": "ACC0124",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -6332,6 +6259,22 @@
         ]
       },
       {
+        "account_id": "ACC0046",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0149",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
         "account_id": "ACC0200",
         "probable_role": "unknown",
         "role_confidence": 0,
@@ -6340,7 +6283,7 @@
         ]
       },
       {
-        "account_id": "ACC0114",
+        "account_id": "ACC0183",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -6356,6 +6299,70 @@
         ]
       },
       {
+        "account_id": "ACC0182",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0114",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0198",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0040",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0124",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0027",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0181",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0115",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
         "account_id": "ACC0126",
         "probable_role": "unknown",
         "role_confidence": 0,
@@ -6364,7 +6371,15 @@
         ]
       },
       {
-        "account_id": "ACC0149",
+        "account_id": "ACC0136",
+        "probable_role": "unknown",
+        "role_confidence": 0,
+        "role_evidence": [
+          "Cluster risk is LOW \u2014 role labels reserved for suspicious candidate networks; account left unclassified"
+        ]
+      },
+      {
+        "account_id": "ACC0125",
         "probable_role": "unknown",
         "role_confidence": 0,
         "role_evidence": [
@@ -6536,18 +6551,6 @@
     },
     "money_flow_paths": [
       {
-        "source_account": "ACC0091",
-        "destination_account": "ACC0004",
-        "path": [
-          "ACC0091",
-          "ACC0027",
-          "ACC0004"
-        ],
-        "total_volume": 19310,
-        "transaction_count": 2,
-        "time_span_hours": 3377.3257
-      },
-      {
         "source_account": "ACC0101",
         "destination_account": "ACC0139",
         "path": [
@@ -6558,78 +6561,6 @@
         "total_volume": 17753,
         "transaction_count": 2,
         "time_span_hours": 2441.3015
-      },
-      {
-        "source_account": "ACC0094",
-        "destination_account": "ACC0092",
-        "path": [
-          "ACC0094",
-          "ACC0136",
-          "ACC0092"
-        ],
-        "total_volume": 16942,
-        "transaction_count": 2,
-        "time_span_hours": 0.0
-      },
-      {
-        "source_account": "ACC0091",
-        "destination_account": "ACC0076",
-        "path": [
-          "ACC0091",
-          "ACC0027",
-          "ACC0076"
-        ],
-        "total_volume": 14130,
-        "transaction_count": 2,
-        "time_span_hours": 2601.6341
-      },
-      {
-        "source_account": "ACC0039",
-        "destination_account": "ACC0096",
-        "path": [
-          "ACC0039",
-          "ACC0115",
-          "ACC0096"
-        ],
-        "total_volume": 13316,
-        "transaction_count": 2,
-        "time_span_hours": 0.0
-      },
-      {
-        "source_account": "ACC0019",
-        "destination_account": "ACC0096",
-        "path": [
-          "ACC0019",
-          "ACC0115",
-          "ACC0096"
-        ],
-        "total_volume": 13316,
-        "transaction_count": 2,
-        "time_span_hours": 3039.3195
-      },
-      {
-        "source_account": "ACC0039",
-        "destination_account": "ACC0097",
-        "path": [
-          "ACC0039",
-          "ACC0115",
-          "ACC0097"
-        ],
-        "total_volume": 12809,
-        "transaction_count": 2,
-        "time_span_hours": 0.0
-      },
-      {
-        "source_account": "ACC0019",
-        "destination_account": "ACC0097",
-        "path": [
-          "ACC0019",
-          "ACC0115",
-          "ACC0097"
-        ],
-        "total_volume": 12809,
-        "transaction_count": 2,
-        "time_span_hours": 363.2533
       },
       {
         "source_account": "ACC0022",
@@ -6654,6 +6585,91 @@
         "total_volume": 9970,
         "transaction_count": 2,
         "time_span_hours": 1130.2006
+      },
+      {
+        "source_account": "ACC0101",
+        "destination_account": "ACC0004",
+        "path": [
+          "ACC0101",
+          "ACC0198",
+          "ACC0027",
+          "ACC0004"
+        ],
+        "total_volume": 19095,
+        "transaction_count": 3,
+        "time_span_hours": 3674.1018
+      },
+      {
+        "source_account": "ACC0199",
+        "destination_account": "ACC0028",
+        "path": [
+          "ACC0199",
+          "ACC0124",
+          "ACC0028"
+        ],
+        "total_volume": 8272,
+        "transaction_count": 2,
+        "time_span_hours": 1144.2058
+      },
+      {
+        "source_account": "ACC0158",
+        "destination_account": "ACC0028",
+        "path": [
+          "ACC0158",
+          "ACC0124",
+          "ACC0028"
+        ],
+        "total_volume": 8272,
+        "transaction_count": 2,
+        "time_span_hours": 0.0
+      },
+      {
+        "source_account": "ACC0101",
+        "destination_account": "ACC0199",
+        "path": [
+          "ACC0101",
+          "ACC0198",
+          "ACC0199"
+        ],
+        "total_volume": 6903,
+        "transaction_count": 2,
+        "time_span_hours": 2046.9358
+      },
+      {
+        "source_account": "ACC0077",
+        "destination_account": "ACC0199",
+        "path": [
+          "ACC0077",
+          "ACC0198",
+          "ACC0199"
+        ],
+        "total_volume": 6903,
+        "transaction_count": 2,
+        "time_span_hours": 735.8348
+      },
+      {
+        "source_account": "ACC0022",
+        "destination_account": "ACC0199",
+        "path": [
+          "ACC0022",
+          "ACC0198",
+          "ACC0199"
+        ],
+        "total_volume": 6903,
+        "transaction_count": 2,
+        "time_span_hours": 0.0
+      },
+      {
+        "source_account": "ACC0077",
+        "destination_account": "ACC0113",
+        "path": [
+          "ACC0077",
+          "ACC0182",
+          "ACC0113"
+        ],
+        "total_volume": 5230,
+        "transaction_count": 2,
+        "time_span_hours": 0.0
       }
     ]
   }

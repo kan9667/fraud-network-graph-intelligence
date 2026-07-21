@@ -385,4 +385,6 @@ class TestRoleClassifier:
         ]
         for path in roots:
             text = path.read_text()
-            assert "ground_truth_roles" not in text, f"{path} references ground truth"
+            assert "GROUND_TRUTH_FILE" not in text, f"{path} loads GT config"
+            assert "load_ground_truth" not in text, f"{path} loads GT helper"
+            assert "ground_truth_roles.csv" not in text, f"{path} references GT file"

@@ -1,20 +1,30 @@
 """
 Investigator Command Center — Fraud Network Intelligence Dashboard
 
-Loads detection outputs only. Does not use ground-truth labels.
+Loads detection outputs only. Does not use evaluation-only labels.
+On a fresh deploy (missing data/ or output/), bootstraps generation + detection
+via imported main() functions.
 """
 
 from __future__ import annotations
 
 import json
-import subprocess
+import traceback
 from pathlib import Path
 
 import pandas as pd
 import streamlit as st
-import streamlit.components.v1 as components
 
-from src.config import BASE_DIR, OUTPUT_DIR, RAPID_FORWARDING_WINDOW_HOURS
+from src.config import (
+    BASE_DIR,
+    OUTPUT_DIR,
+    DATA_DIR,
+    ACCOUNTS_FILE,
+    TRANSACTIONS_FILE,
+    GRAPH_FILE,
+    CLUSTER_RESULTS_FILE,
+    RAPID_FORWARDING_WINDOW_HOURS,
+)
 from src.dashboard_data import (
     ROLE_COLORS,
     ROLE_DISPLAY,
@@ -116,6 +126,115 @@ NAV_ITEMS = [
 ]
 
 # ---------------------------------------------------------------------------
+# Pipeline bootstrap (once per cache / missing artifacts only)
+# ---------------------------------------------------------------------------
+
+VIZ_DIR = OUTPUT_DIR / "viz"
+
+
+def _data_files_present() -> bool:
+    root_a = BASE_DIR / "accounts.csv"
+    root_t = BASE_DIR / "transactions.csv"
+    return (ACCOUNTS_FILE.exists() or root_a.exists()) and (
+        TRANSACTIONS_FILE.exists() or root_t.exists()
+    )
+
+
+def _detection_outputs_present() -> bool:
+    return GRAPH_FILE.exists() and CLUSTER_RESULTS_FILE.exists()
+
+
+def _run_generate_data():
+    """Import and call generate_data.main() — no subprocess."""
+    import generate_data
+
+    generate_data.main()
+
+
+def _run_detect_fraud():
+    """Import and call detect_fraud.main() — no subprocess, no eval labels."""
+    import detect_fraud
+
+    return detect_fraud.main()
+
+
+@st.cache_resource(show_spinner=False)
+def bootstrap_pipeline_cached():
+    """Ensure data + detection outputs exist.
+
+    Idempotent: only generates/detects when files are missing.
+    Cached so concurrent Streamlit reruns share one bootstrap attempt.
+    Callers must clear this cache if artifacts were deleted mid-session.
+
+    Detection uses only accounts/transactions CSVs — never evaluation labels.
+    """
+    steps = []
+    try:
+        DATA_DIR.mkdir(parents=True, exist_ok=True)
+        OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+        if not _data_files_present():
+            steps.append("Generating synthetic dataset (accounts + transactions)…")
+            _run_generate_data()
+            steps.append("Synthetic data ready.")
+        else:
+            steps.append("Source data files found.")
+
+        if not _detection_outputs_present():
+            steps.append("Running unsupervised detection pipeline…")
+            _run_detect_fraud()
+            steps.append("Detection outputs written (graph + cluster results).")
+        else:
+            steps.append("Detection outputs found.")
+
+        if not _data_files_present() or not _detection_outputs_present():
+            raise FileNotFoundError(
+                f"Required artifacts still missing after pipeline run. "
+                f"Data: accounts={ACCOUNTS_FILE.exists()} "
+                f"transactions={TRANSACTIONS_FILE.exists()}. "
+                f"Outputs: graph={GRAPH_FILE.exists()} "
+                f"results={CLUSTER_RESULTS_FILE.exists()}."
+            )
+
+        return {"ok": True, "error": None, "steps": steps}
+    except Exception:
+        return {
+            "ok": False,
+            "error": traceback.format_exc(),
+            "steps": steps,
+        }
+
+
+def ensure_pipeline_ready():
+    """Filesystem-aware bootstrap: never trust a stale success if files are gone."""
+    if _data_files_present() and _detection_outputs_present():
+        return {
+            "ok": True,
+            "error": None,
+            "steps": ["Detection outputs ready."],
+            "bootstrapped": False,
+        }
+
+    # Artifacts missing — force a real bootstrap run
+    bootstrap_pipeline_cached.clear()
+    result = bootstrap_pipeline_cached()
+    result = dict(result)
+    result["bootstrapped"] = True
+    return result
+
+
+def clear_all_caches():
+    """Clear Streamlit caches after a manual re-run of detection."""
+    bootstrap_pipeline_cached.clear()
+    cached_cluster_results.clear()
+    cached_accounts.clear()
+    cached_transactions.clear()
+    cached_graph.clear()
+    cached_cluster_html_path.clear()
+    cached_neighborhood_html_path.clear()
+
+
+# ---------------------------------------------------------------------------
 # Cached data loaders
 # ---------------------------------------------------------------------------
 
@@ -141,22 +260,41 @@ def cached_graph():
 
 
 @st.cache_data(show_spinner=False)
-def cached_cluster_html(cluster_id: int, role_json: str):
-    """Cache PyVis HTML per case + role map fingerprint."""
+def cached_cluster_html_path(cluster_id: int, role_json: str) -> str:
+    """Build PyVis HTML once per case; return filesystem path for st.iframe."""
     results = load_cluster_results_raw()
     case = get_case_by_id(results, cluster_id)
+    VIZ_DIR.mkdir(parents=True, exist_ok=True)
+    out = VIZ_DIR / f"cluster_{int(cluster_id)}.html"
     if case is None:
-        return "<html><body>Case not found</body></html>"
+        out.write_text(
+            "<html><body style='background:#0f1419;color:#aaa;padding:2rem'>"
+            "Case not found</body></html>",
+            encoding="utf-8",
+        )
+        return str(out)
     G = load_graph_safe()
     role_by_account = json.loads(role_json)
-    return build_cluster_network_html(G, case["members"], role_by_account)
+    html = build_cluster_network_html(G, case["members"], role_by_account)
+    out.write_text(html, encoding="utf-8")
+    return str(out)
 
 
 @st.cache_data(show_spinner=False)
-def cached_neighborhood_html(account_id: str, role_json: str):
+def cached_neighborhood_html_path(account_id: str, role_json: str) -> str:
+    VIZ_DIR.mkdir(parents=True, exist_ok=True)
+    safe_id = "".join(c if c.isalnum() or c in "-_" else "_" for c in account_id)
+    out = VIZ_DIR / f"neighborhood_{safe_id}.html"
     G = load_graph_safe()
     role_by_account = json.loads(role_json)
-    return build_neighborhood_html(G, account_id, role_by_account)
+    html = build_neighborhood_html(G, account_id, role_by_account)
+    out.write_text(html, encoding="utf-8")
+    return str(out)
+
+
+def render_html_iframe(html_path: str, height: int = 640):
+    """Embed local HTML visualization via current Streamlit iframe API."""
+    st.iframe(Path(html_path), height=height, width="stretch")
 
 
 # ---------------------------------------------------------------------------
@@ -189,6 +327,35 @@ def select_case(cluster_id, go_to="Network Investigation"):
 
 
 def require_data():
+    """Bootstrap missing artifacts if needed, then load detection outputs."""
+    needs_bootstrap = not _detection_outputs_present() or not _data_files_present()
+
+    if needs_bootstrap:
+        status = st.status("Initializing detection outputs…", expanded=True)
+        status.write("Checking source data and detection artifacts…")
+        result = ensure_pipeline_ready()
+        for step in result.get("steps") or []:
+            status.write(step)
+        if not result.get("ok"):
+            status.update(label="Initialization failed", state="error")
+            st.error(
+                "Failed to initialize detection outputs. "
+                "The pipeline did not produce required files."
+            )
+            st.code(result.get("error") or "Unknown error", language="text")
+            st.info(
+                "You can retry with **Run detection pipeline** in the sidebar, "
+                "or run `python3 generate_data.py` and `python3 detect_fraud.py` locally."
+            )
+            st.stop()
+        status.update(label="Detection outputs ready", state="complete")
+    else:
+        result = ensure_pipeline_ready()
+        if not result.get("ok"):
+            st.error("Pipeline bootstrap reported an error.")
+            st.code(result.get("error") or "Unknown error", language="text")
+            st.stop()
+
     try:
         results = cached_cluster_results()
         accounts = cached_accounts()
@@ -196,12 +363,15 @@ def require_data():
         G = cached_graph()
     except FileNotFoundError as e:
         st.error(
-            "Detection outputs not found. Run `python3 detect_fraud.py` first, "
-            f"or use **Run detection** in the sidebar.\n\nDetails: {e}"
+            "Detection outputs are still missing after initialization.\n\n"
+            f"Details: {e}"
         )
+        st.code(traceback.format_exc(), language="text")
         st.stop()
     except Exception as e:
-        st.error(f"Failed to load detection data: {e}")
+        st.error("Failed to load detection data.")
+        st.code(traceback.format_exc(), language="text")
+        st.exception(e)
         st.stop()
 
     if not results:
@@ -284,25 +454,19 @@ def render_sidebar(results, accounts, transactions):
         st.session_state.selected_cluster_id = case_options[picked]
 
         st.divider()
-        if st.button("Run detection pipeline", use_container_width=True):
-            with st.spinner("Running detect_fraud.py…"):
-                proc = subprocess.run(
-                    ["python3", "detect_fraud.py"],
-                    cwd=str(BASE_DIR),
-                    capture_output=True,
-                    text=True,
-                )
-            cached_cluster_results.clear()
-            cached_accounts.clear()
-            cached_transactions.clear()
-            cached_graph.clear()
-            cached_cluster_html.clear()
-            cached_neighborhood_html.clear()
-            if proc.returncode == 0:
-                st.success("Detection complete. Reload to refresh.")
-                st.rerun()
-            else:
-                st.error(proc.stderr[-800:] if proc.stderr else "Detection failed")
+        if st.button("Run detection pipeline", width="stretch"):
+            with st.spinner("Running detection pipeline…"):
+                try:
+                    # Force a fresh detection pass on existing (or newly generated) data.
+                    if not _data_files_present():
+                        _run_generate_data()
+                    _run_detect_fraud()
+                    clear_all_caches()
+                    st.success("Detection complete.")
+                    st.rerun()
+                except Exception:
+                    st.error("Detection pipeline failed.")
+                    st.code(traceback.format_exc(), language="text")
 
         st.divider()
         status = system_status(accounts, transactions, results)
@@ -395,7 +559,7 @@ def page_command_center(results, accounts, transactions):
                     if st.button(
                         "Investigate",
                         key=f"prio_{r['cluster_id']}",
-                        use_container_width=True,
+                        width="stretch",
                     ):
                         select_case(r["cluster_id"])
                         st.rerun()
@@ -500,7 +664,7 @@ def page_fraud_cases(results):
     display = pd.DataFrame(rows).drop(columns=["cluster_id"])
     st.dataframe(
         display,
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
         column_config={
             "Internal volume": st.column_config.NumberColumn(format="₹%d"),
@@ -515,7 +679,7 @@ def page_fraud_cases(results):
             if st.button(
                 f"{row['Case ID']} ({row['Risk level']})",
                 key=f"open_{row['cluster_id']}",
-                use_container_width=True,
+                width="stretch",
             ):
                 select_case(row["cluster_id"])
                 st.rerun()
@@ -574,7 +738,7 @@ def page_network(case, G):
             [{"Role": pretty.get(k, k), "Count": v} for k, v in rs.items() if v]
         )
         if len(role_df):
-            st.dataframe(role_df, hide_index=True, use_container_width=True)
+            st.dataframe(role_df, hide_index=True, width="stretch")
         st.subheader("Money-flow summary")
         st.markdown(
             f"- Internal: **₹{mf['internal']:,}**\n"
@@ -589,10 +753,13 @@ def page_network(case, G):
     st.markdown(role_legend_markdown(), unsafe_allow_html=True)
     st.caption("Nodes colored by algorithmically inferred role. Gray external nodes are counterparties outside the case membership.")
     try:
-        html = cached_cluster_html(int(case["cluster_id"]), role_json_for_case(case))
-        components.html(html, height=640, scrolling=True)
+        html_path = cached_cluster_html_path(
+            int(case["cluster_id"]), role_json_for_case(case)
+        )
+        render_html_iframe(html_path, height=640)
     except Exception as e:
         st.warning(f"Could not render network graph: {e}")
+        st.code(traceback.format_exc(), language="text")
 
     st.subheader("Accounts in this case")
     profiles = case.get("account_profiles") or []
@@ -609,7 +776,7 @@ def page_network(case, G):
                 for p in profiles
             ]
         )
-        st.dataframe(pdf, hide_index=True, use_container_width=True)
+        st.dataframe(pdf, hide_index=True, width="stretch")
         picks = [p["account_id"] for p in profiles]
         acc = st.selectbox("Select account for deeper investigation", picks)
         if st.button("Open account investigation", type="primary"):
@@ -691,8 +858,10 @@ def page_account(case, G, transactions):
 
     st.subheader("Immediate network neighborhood")
     try:
-        html = cached_neighborhood_html(account_id, role_json_for_case(case))
-        components.html(html, height=440, scrolling=True)
+        html_path = cached_neighborhood_html_path(
+            account_id, role_json_for_case(case)
+        )
+        render_html_iframe(html_path, height=440)
     except Exception as e:
         st.warning(f"Neighborhood graph unavailable: {e}")
         if inv["neighbors"]:
@@ -746,7 +915,7 @@ def page_money_flow(case):
                     ["source_account", "destination_account", "total_volume", "transaction_count"]
                 ],
                 hide_index=True,
-                use_container_width=True,
+                width="stretch",
             )
         else:
             st.caption("No internal aggregate flows.")
@@ -759,7 +928,7 @@ def page_money_flow(case):
                     ["source_account", "destination_account", "total_volume", "transaction_count"]
                 ],
                 hide_index=True,
-                use_container_width=True,
+                width="stretch",
             )
         else:
             st.caption("No external aggregate flows.")
@@ -836,7 +1005,7 @@ def page_timeline(case, transactions):
     st.dataframe(
         show,
         hide_index=True,
-        use_container_width=True,
+        width="stretch",
         height=480,
         column_config={
             "amount": st.column_config.NumberColumn("Amount", format="₹%d"),
@@ -916,7 +1085,7 @@ def page_evidence(case):
             data=j,
             file_name=f"{case_id(case['cluster_id'])}_report.json",
             mime="application/json",
-            use_container_width=True,
+            width="stretch",
         )
     with b2:
         st.download_button(
@@ -924,7 +1093,7 @@ def page_evidence(case):
             data=md,
             file_name=f"{case_id(case['cluster_id'])}_report.md",
             mime="text/markdown",
-            use_container_width=True,
+            width="stretch",
         )
 
     with st.expander("Preview JSON report"):
