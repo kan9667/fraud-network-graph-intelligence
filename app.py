@@ -76,8 +76,46 @@ st.markdown(
         border: 1px solid #2c3e50;
         border-radius: 8px;
         padding: 12px 14px;
+        overflow: visible !important;
+        min-width: 0;
     }
     div[data-testid="stMetric"] label { color: #95a5a6 !important; }
+    /* Prevent Streamlit metric values from ellipsis-truncating long currency */
+    div[data-testid="stMetricValue"] {
+        white-space: nowrap !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+        font-variant-numeric: tabular-nums;
+        font-size: clamp(0.95rem, 1.5vw, 1.35rem) !important;
+        line-height: 1.25 !important;
+    }
+    div[data-testid="stMetricLabel"] {
+        white-space: normal !important;
+    }
+    .money-metric {
+        background: #1a2332;
+        border: 1px solid #2c3e50;
+        border-radius: 8px;
+        padding: 12px 16px;
+        margin-bottom: 0.35rem;
+        min-height: 4.5rem;
+        overflow: visible;
+    }
+    .money-metric .money-label {
+        color: #95a5a6;
+        font-size: 0.85rem;
+        font-weight: 500;
+        margin-bottom: 0.35rem;
+    }
+    .money-metric .money-value {
+        color: #ecf0f1;
+        font-size: 1.35rem;
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+        overflow: visible;
+        letter-spacing: 0.01em;
+    }
     .case-card {
         border: 1px solid #2c3e50;
         border-radius: 10px;
@@ -414,6 +452,72 @@ def money_flow_fields(case):
     }
 
 
+def format_inr(amount) -> str:
+    """Full INR display with thousand separators — never rounded or abbreviated.
+
+    Example: 1959542 → '₹1,959,542'
+    """
+    try:
+        value = int(amount or 0)
+    except (TypeError, ValueError):
+        value = 0
+    return f"₹{value:,}"
+
+
+def render_money_metric(label: str, amount) -> None:
+    """Wide, non-truncating currency metric card (full amount always visible)."""
+    st.markdown(
+        f'<div class="money-metric">'
+        f'<div class="money-label">{label}</div>'
+        f'<div class="money-value">{format_inr(amount)}</div>'
+        f"</div>",
+        unsafe_allow_html=True,
+    )
+
+
+def render_plain_metric(label: str, value) -> None:
+    """Non-currency metric card matching money-metric styling."""
+    st.markdown(
+        f'<div class="money-metric">'
+        f'<div class="money-label">{label}</div>'
+        f'<div class="money-value">{value}</div>'
+        f"</div>",
+        unsafe_allow_html=True,
+    )
+
+
+def render_case_volume_metrics(mf: dict, include_density: float | None = None) -> None:
+    """Case header volume metrics — full INR strings, responsive 2-row layout."""
+    # Row 1: primary monetary volumes (wider cards, no 4-way squeeze)
+    r1 = st.columns(2)
+    with r1[0]:
+        render_money_metric("Internal volume", mf["internal"])
+    with r1[1]:
+        render_money_metric("Exit volume", mf["exit"])
+
+    r2 = st.columns(2)
+    with r2[0]:
+        render_money_metric("External inbound", mf["ext_in"])
+    with r2[1]:
+        render_money_metric("External outbound", mf["ext_out"])
+
+    if include_density is not None:
+        r3 = st.columns(2)
+        with r3[0]:
+            render_plain_metric("Rapid forwarding events", f"{mf['rapid']:,}")
+        with r3[1]:
+            render_plain_metric("Network density", f"{include_density:.2f}")
+    else:
+        r3 = st.columns(2)
+        with r3[0]:
+            render_money_metric("Estimated forwarded", mf["forwarded"])
+        with r3[1]:
+            render_plain_metric(
+                "Forwarding ratio", f"{mf['fwd_ratio']:.1%}"
+            )
+            st.caption(f"Rapid forwarding events: **{mf['rapid']:,}**")
+
+
 # ---------------------------------------------------------------------------
 # Sidebar
 # ---------------------------------------------------------------------------
@@ -501,12 +605,13 @@ def page_command_center(results, accounts, transactions):
     c3.metric("Candidate networks", metrics["candidate_networks"])
     c4.metric("Medium+ risk networks", metrics["medium_plus_networks"])
 
-    c5, c6, c7 = st.columns(3)
+    c5, c6, c7 = st.columns([1, 1.4, 1])
     c5.metric("High / Critical networks", metrics["high_critical_networks"])
-    c6.metric(
-        "Suspicious internal volume",
-        f"₹{metrics['suspicious_transaction_volume']:,}",
-    )
+    with c6:
+        render_money_metric(
+            "Suspicious internal volume",
+            metrics["suspicious_transaction_volume"],
+        )
     c7.metric("Rapid forwarding events", f"{metrics['rapid_forwarding_events']:,}")
 
     st.markdown(
@@ -564,8 +669,8 @@ def page_command_center(results, accounts, transactions):
                         select_case(r["cluster_id"])
                         st.rerun()
                 st.caption(
-                    f"{r.get('size')} accounts · internal ₹{mf['internal']:,} · "
-                    f"exit ₹{mf['exit']:,} · rapid fwd {mf['rapid']}"
+                    f"{r.get('size')} accounts · internal {format_inr(mf['internal'])} · "
+                    f"exit {format_inr(mf['exit'])} · rapid fwd {mf['rapid']}"
                 )
                 if factors:
                     st.caption("Risk factors: " + " · ".join(factors[:3]))
@@ -696,11 +801,7 @@ def page_network(case, G):
     )
 
     mf = money_flow_fields(case)
-    m1, m2, m3, m4 = st.columns(4)
-    m1.metric("Internal volume", f"₹{mf['internal']:,}")
-    m2.metric("Exit volume", f"₹{mf['exit']:,}")
-    m3.metric("Rapid forwarding", mf["rapid"])
-    m4.metric("Density", f"{case.get('density', 0):.2f}")
+    render_case_volume_metrics(mf, include_density=float(case.get("density", 0) or 0))
 
     c1, c2 = st.columns(2)
     with c1:
@@ -741,11 +842,11 @@ def page_network(case, G):
             st.dataframe(role_df, hide_index=True, width="stretch")
         st.subheader("Money-flow summary")
         st.markdown(
-            f"- Internal: **₹{mf['internal']:,}**\n"
-            f"- External inbound: **₹{mf['ext_in']:,}**\n"
-            f"- External outbound: **₹{mf['ext_out']:,}**\n"
-            f"- Exit volume: **₹{mf['exit']:,}**\n"
-            f"- Estimated forwarded: **₹{mf['forwarded']:,}** "
+            f"- Internal: **{format_inr(mf['internal'])}**\n"
+            f"- External inbound: **{format_inr(mf['ext_in'])}**\n"
+            f"- External outbound: **{format_inr(mf['ext_out'])}**\n"
+            f"- Exit volume: **{format_inr(mf['exit'])}**\n"
+            f"- Estimated forwarded: **{format_inr(mf['forwarded'])}** "
             f"(ratio {mf['fwd_ratio']:.1%})"
         )
 
@@ -824,14 +925,14 @@ def page_account(case, G, transactions):
         st.markdown("**Transaction statistics**")
         st.write(f"Inbound count: {flow.get('internal_inbound_count', 0) + flow.get('external_inbound_count', 0)}")
         st.write(f"Outbound count: {flow.get('internal_outbound_count', 0) + flow.get('external_outbound_count', 0)}")
-        st.write(f"Inbound volume: ₹{flow.get('inbound_volume', 0):,}")
-        st.write(f"Outbound volume: ₹{flow.get('outbound_volume', 0):,}")
-        st.write(f"Internal inbound: ₹{flow.get('internal_inbound_volume', 0):,}")
-        st.write(f"Internal outbound: ₹{flow.get('internal_outbound_volume', 0):,}")
-        st.write(f"External inbound: ₹{flow.get('external_inbound_volume', 0):,}")
-        st.write(f"External outbound: ₹{flow.get('external_outbound_volume', 0):,}")
+        st.write(f"Inbound volume: {format_inr(flow.get('inbound_volume', 0))}")
+        st.write(f"Outbound volume: {format_inr(flow.get('outbound_volume', 0))}")
+        st.write(f"Internal inbound: {format_inr(flow.get('internal_inbound_volume', 0))}")
+        st.write(f"Internal outbound: {format_inr(flow.get('internal_outbound_volume', 0))}")
+        st.write(f"External inbound: {format_inr(flow.get('external_inbound_volume', 0))}")
+        st.write(f"External outbound: {format_inr(flow.get('external_outbound_volume', 0))}")
         if flow.get("exit_outbound_volume"):
-            st.write(f"Exit outbound: ₹{flow.get('exit_outbound_volume', 0):,}")
+            st.write(f"Exit outbound: {format_inr(flow.get('exit_outbound_volume', 0))}")
     with t2:
         st.markdown("**Network statistics**")
         st.write(f"Degree: {inv['degree']}")
@@ -873,14 +974,7 @@ def page_money_flow(case):
     st.caption("Derived from actual transactions; paths are not invented")
 
     mf = money_flow_fields(case)
-    c1, c2, c3, c4 = st.columns(4)
-    c1.metric("Internal volume", f"₹{mf['internal']:,}")
-    c2.metric("External inbound", f"₹{mf['ext_in']:,}")
-    c3.metric("External outbound", f"₹{mf['ext_out']:,}")
-    c4.metric("Exit volume", f"₹{mf['exit']:,}")
-    c5, c6 = st.columns(2)
-    c5.metric("Estimated forwarded", f"₹{mf['forwarded']:,}")
-    c6.metric("Forwarding ratio", f"{mf['fwd_ratio']:.1%}")
+    render_case_volume_metrics(mf, include_density=None)
 
     st.subheader("Top money-flow paths")
     paths = case.get("money_flow_paths") or []
@@ -893,13 +987,16 @@ def page_money_flow(case):
             # Build a simple vertical flow diagram
             lines = []
             for j, node in enumerate(nodes):
-                lines.append(f"**{node}**")
+                lines.append(f"{node}")
                 if j < len(nodes) - 1:
-                    lines.append(f"<div style='color:#5dade2;padding-left:8px'>↓ ₹{vol:,}</div>")
+                    lines.append(
+                        f"<div style='color:#5dade2;padding-left:8px'>"
+                        f"↓ {format_inr(vol)}</div>"
+                    )
             html = (
                 f"<div class='path-box'><div style='color:#7f8c8d;margin-bottom:6px'>"
                 f"Path {i} · {p.get('transaction_count', 0)} tx · "
-                f"{p.get('time_span_hours', 0)}h span · total ₹{vol:,}"
+                f"{p.get('time_span_hours', 0)}h span · total {format_inr(vol)}"
                 f"</div>{''.join(lines)}</div>"
             )
             st.markdown(html, unsafe_allow_html=True)
