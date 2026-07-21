@@ -126,6 +126,18 @@ def case_id(cluster_id) -> str:
     return f"CASE-{int(cluster_id):03d}"
 
 
+def format_inr(amount) -> str:
+    """Full INR display with thousand separators — never rounded or abbreviated.
+
+    Example: 1959542 → '₹1,959,542'
+    """
+    try:
+        value = int(amount or 0)
+    except (TypeError, ValueError):
+        value = 0
+    return f"₹{value:,}"
+
+
 def get_case_by_id(results, cluster_id):
     for r in results:
         if int(r["cluster_id"]) == int(cluster_id):
@@ -142,6 +154,48 @@ def sort_cases(results):
             -int(r.get("internal_volume", 0)),
         ),
     )
+
+
+def select_recommended_case(results):
+    """Pick the strongest investigation case from detection outputs only.
+
+    Preference order:
+      1. MEDIUM+ risk level
+      2. Higher risk_score
+      3. Higher internal volume / exit volume / rapid-forwarding evidence
+    Never uses ground truth.
+    """
+    if not results:
+        return None
+    suspicious = [
+        r for r in results
+        if str(r.get("risk_level", "")).upper() in {"MEDIUM", "HIGH", "CRITICAL"}
+    ]
+    pool = suspicious if suspicious else list(results)
+
+    def _evidence_score(r):
+        mf = r.get("money_flow") or {}
+        rs = r.get("role_summary") or {}
+        role_signal = sum(
+            int(rs.get(k, 0) or 0)
+            for k in (
+                "probable_mules",
+                "probable_coordinators",
+                "probable_consolidators",
+                "probable_cash_out",
+                "suspected_victims",
+            )
+        )
+        return (
+            RISK_ORDER.get(str(r.get("risk_level", "LOW")).upper(), 9),
+            -float(r.get("risk_score", 0) or 0),
+            -int(mf.get("exit_outbound_volume", 0) or 0),
+            -int(mf.get("rapid_forwarding_events", 0) or 0),
+            -int(r.get("internal_volume", 0) or 0),
+            -role_signal,
+        )
+
+    return sorted(pool, key=_evidence_score)[0]
 
 
 def primary_roles(role_summary: dict) -> str:
@@ -455,32 +509,137 @@ def build_risk_indicators(case) -> list:
     return unique
 
 
-def build_case_report(case) -> dict:
-    """JSON-serializable investigation package (no ground truth)."""
+def _money_flow_display_block(mf: dict) -> dict:
+    """Human-readable money-flow block with fully formatted currency strings."""
+    return {
+        "internal_volume": int(mf.get("internal_volume", 0) or 0),
+        "internal_volume_display": format_inr(mf.get("internal_volume", 0)),
+        "external_inbound_volume": int(mf.get("external_inbound_volume", 0) or 0),
+        "external_inbound_display": format_inr(mf.get("external_inbound_volume", 0)),
+        "external_outbound_volume": int(mf.get("external_outbound_volume", 0) or 0),
+        "external_outbound_display": format_inr(mf.get("external_outbound_volume", 0)),
+        "exit_outbound_volume": int(mf.get("exit_outbound_volume", 0) or 0),
+        "exit_outbound_display": format_inr(mf.get("exit_outbound_volume", 0)),
+        "estimated_forwarded_volume": int(mf.get("estimated_forwarded_volume", 0) or 0),
+        "estimated_forwarded_display": format_inr(mf.get("estimated_forwarded_volume", 0)),
+        "estimated_forwarding_ratio": mf.get("estimated_forwarding_ratio"),
+        "rapid_forwarding_events": int(mf.get("rapid_forwarding_events", 0) or 0),
+    }
+
+
+def build_case_report(case, transactions_df=None) -> dict:
+    """JSON-serializable investigation package (no ground truth).
+
+    Optional transactions_df enriches timeline / important-transaction sections.
+    """
     mf = case.get("money_flow") or {}
+    paths = (case.get("money_flow_paths") or [])[:10]
+    paths_fmt = []
+    for p in paths:
+        nodes = [str(n) for n in (p.get("path") or [])]
+        vol = int(p.get("total_volume", 0) or 0)
+        paths_fmt.append({
+            "source_account": p.get("source_account") or (nodes[0] if nodes else None),
+            "destination_account": p.get("destination_account") or (
+                nodes[-1] if nodes else None
+            ),
+            "path": nodes,
+            "path_display": " → ".join(nodes),
+            "total_volume": vol,
+            "total_volume_display": format_inr(vol),
+            "transaction_count": p.get("transaction_count"),
+            "time_span_hours": p.get("time_span_hours"),
+        })
+
+    # Important accounts: non-unknown roles, higher confidence first
+    profiles = sorted(
+        case.get("account_profiles") or [],
+        key=lambda p: (
+            0 if p.get("probable_role") not in (None, "unknown") else 1,
+            -(p.get("role_confidence") or 0),
+            p.get("account_id") or "",
+        ),
+    )
+    important_profiles = [
+        {
+            "account_id": p.get("account_id"),
+            "probable_role": p.get("probable_role"),
+            "role_confidence": p.get("role_confidence"),
+            "role_evidence": list(p.get("role_evidence") or []),
+        }
+        for p in profiles
+        if p.get("probable_role") not in (None, "unknown")
+    ][:20]
+
+    # Timeline / high-signal transaction highlights (optional)
+    important_transactions = []
+    timeline_summary = {
+        "transaction_count": 0,
+        "first_timestamp": None,
+        "last_timestamp": None,
+        "rapid_forward_count": 0,
+        "exit_transaction_count": 0,
+        "high_value_count": 0,
+    }
+    if transactions_df is not None and len(transactions_df) > 0:
+        tx = case_transactions(case, transactions_df)
+        if len(tx) > 0:
+            tx = mark_rapid_forwarding(tx, case.get("members") or [])
+            timeline_summary["transaction_count"] = int(len(tx))
+            timeline_summary["first_timestamp"] = str(tx["timestamp"].min())
+            timeline_summary["last_timestamp"] = str(tx["timestamp"].max())
+            timeline_summary["rapid_forward_count"] = int(tx["is_rapid_forward"].sum())
+            timeline_summary["exit_transaction_count"] = int(tx["is_exit"].sum())
+            timeline_summary["high_value_count"] = int(tx["is_high_value"].sum())
+            highlight = tx[
+                tx["is_rapid_forward"] | tx["is_exit"] | tx["is_high_value"]
+            ].sort_values("amount", ascending=False).head(15)
+            for _, row in highlight.iterrows():
+                important_transactions.append({
+                    "timestamp": str(row["timestamp"]),
+                    "from_account": row["from_account"],
+                    "to_account": row["to_account"],
+                    "amount": int(row["amount"]),
+                    "amount_display": format_inr(row["amount"]),
+                    "flow_class": row.get("flow_class"),
+                    "is_exit": bool(row.get("is_exit")),
+                    "is_rapid_forward": bool(row.get("is_rapid_forward")),
+                    "is_high_value": bool(row.get("is_high_value")),
+                })
+
     report = {
         "case_id": case_id(case["cluster_id"]),
         "cluster_id": case["cluster_id"],
         "risk_level": case.get("risk_level"),
         "risk_score": case.get("risk_score"),
         "account_count": case.get("size"),
-        "members": list(case.get("members", [])),
+        "members": [str(m) for m in case.get("members", [])],
         "risk_factors": case.get("risk_factors"),
         "feature_scores": case.get("feature_scores"),
         "explanation": case.get("explanation"),
         "network_structure_summary": case.get("network_structure_summary"),
         "role_summary": case.get("role_summary"),
-        "money_flow_summary": {
-            "internal_volume": mf.get("internal_volume"),
-            "external_inbound_volume": mf.get("external_inbound_volume"),
-            "external_outbound_volume": mf.get("external_outbound_volume"),
-            "exit_outbound_volume": mf.get("exit_outbound_volume"),
-            "estimated_forwarded_volume": mf.get("estimated_forwarded_volume"),
-            "estimated_forwarding_ratio": mf.get("estimated_forwarding_ratio"),
-            "rapid_forwarding_events": mf.get("rapid_forwarding_events"),
+        "money_flow_summary": _money_flow_display_block(mf),
+        "top_money_flow_paths": paths_fmt,
+        "rapid_forwarding_evidence": {
+            "events": int(mf.get("rapid_forwarding_events", 0) or 0),
+            "window_hours": RAPID_FORWARDING_WINDOW_HOURS,
+            "note": (
+                "Rapid forwarding = outbound shortly after inbound within the "
+                f"configured {RAPID_FORWARDING_WINDOW_HOURS}h window."
+            ),
         },
-        "top_money_flow_paths": (case.get("money_flow_paths") or [])[:10],
+        "exit_sink_evidence": {
+            "exit_outbound_volume": int(mf.get("exit_outbound_volume", 0) or 0),
+            "exit_outbound_display": format_inr(mf.get("exit_outbound_volume", 0)),
+            "external_outbound_volume": int(mf.get("external_outbound_volume", 0) or 0),
+            "external_outbound_display": format_inr(mf.get("external_outbound_volume", 0)),
+            "top_external_flows": (mf.get("top_external_flows") or [])[:10],
+        },
+        "timeline_summary": timeline_summary,
+        "important_transactions": important_transactions,
         "account_profiles": case.get("account_profiles"),
+        "important_account_evidence": important_profiles,
         "case_summary": build_case_summary_text(case),
         "risk_indicators": build_risk_indicators(case),
         "disclaimer": (
@@ -493,12 +652,13 @@ def build_case_report(case) -> dict:
 
 
 def case_report_markdown(report: dict) -> str:
+    mf = report.get("money_flow_summary") or {}
     lines = [
         f"# Investigation Report — {report['case_id']}",
         "",
-        f"**Risk level:** {report.get('risk_level')}  ",
-        f"**Risk score:** {report.get('risk_score')}  ",
-        f"**Accounts:** {report.get('account_count')}  ",
+        f"- Risk level: {report.get('risk_level')}",
+        f"- Risk score: {report.get('risk_score')}",
+        f"- Accounts: {report.get('account_count')}",
         "",
         "## Case summary",
         report.get("case_summary", ""),
@@ -518,19 +678,79 @@ def case_report_markdown(report: dict) -> str:
     for k, v in rs.items():
         if v:
             lines.append(f"- {k}: {v}")
-    lines += ["", "## Money-flow summary"]
-    mf = report.get("money_flow_summary") or {}
-    for k, v in mf.items():
-        lines.append(f"- {k}: {v}")
+    lines += [
+        "",
+        "## Money-flow summary",
+        f"- Internal volume: {mf.get('internal_volume_display', format_inr(mf.get('internal_volume', 0)))}",
+        f"- External inbound: {mf.get('external_inbound_display', format_inr(mf.get('external_inbound_volume', 0)))}",
+        f"- External outbound: {mf.get('external_outbound_display', format_inr(mf.get('external_outbound_volume', 0)))}",
+        f"- Exit volume: {mf.get('exit_outbound_display', format_inr(mf.get('exit_outbound_volume', 0)))}",
+        f"- Estimated forwarded: {mf.get('estimated_forwarded_display', format_inr(mf.get('estimated_forwarded_volume', 0)))}",
+        f"- Forwarding ratio: {mf.get('estimated_forwarding_ratio')}",
+        f"- Rapid forwarding events: {mf.get('rapid_forwarding_events')}",
+        "",
+        "## Rapid-forwarding evidence",
+    ]
+    rf = report.get("rapid_forwarding_evidence") or {}
+    lines.append(f"- Events: {rf.get('events', 0)}")
+    lines.append(f"- Window hours: {rf.get('window_hours')}")
+    if rf.get("note"):
+        lines.append(f"- Note: {rf['note']}")
+
+    lines += ["", "## Exit / sink evidence"]
+    ex = report.get("exit_sink_evidence") or {}
+    lines.append(f"- Exit outbound: {ex.get('exit_outbound_display', format_inr(0))}")
+    lines.append(
+        f"- External outbound: {ex.get('external_outbound_display', format_inr(0))}"
+    )
+
     lines += ["", "## Top money-flow paths"]
     for p in report.get("top_money_flow_paths") or []:
-        path = " → ".join(p.get("path") or [])
+        path = p.get("path_display") or " → ".join(p.get("path") or [])
+        vol_disp = p.get("total_volume_display") or format_inr(p.get("total_volume", 0))
         lines.append(
-            f"- {path} | ₹{p.get('total_volume', 0):,} | "
+            f"- {path} | {vol_disp} | "
             f"{p.get('transaction_count', 0)} tx | {p.get('time_span_hours', 0)}h"
         )
-    lines += ["", "## Account profiles"]
-    for ap in report.get("account_profiles") or []:
+
+    ts = report.get("timeline_summary") or {}
+    lines += [
+        "",
+        "## Timeline summary",
+        f"- Transactions: {ts.get('transaction_count', 0)}",
+        f"- First: {ts.get('first_timestamp') or '—'}",
+        f"- Last: {ts.get('last_timestamp') or '—'}",
+        f"- Rapid-forward flags: {ts.get('rapid_forward_count', 0)}",
+        f"- Exit transactions: {ts.get('exit_transaction_count', 0)}",
+        f"- High-value transactions: {ts.get('high_value_count', 0)}",
+        "",
+        "## Important transactions",
+    ]
+    txs = report.get("important_transactions") or []
+    if not txs:
+        lines.append("- No high-signal transactions available in this export.")
+    for t in txs:
+        flags = []
+        if t.get("is_rapid_forward"):
+            flags.append("rapid")
+        if t.get("is_exit"):
+            flags.append("exit")
+        if t.get("is_high_value"):
+            flags.append("high-value")
+        flag_s = f" [{', '.join(flags)}]" if flags else ""
+        lines.append(
+            f"- {t.get('timestamp')}: {t.get('from_account')} → {t.get('to_account')} "
+            f"{t.get('amount_display', format_inr(t.get('amount', 0)))}"
+            f" ({t.get('flow_class')}){flag_s}"
+        )
+
+    lines += ["", "## Account-level evidence"]
+    evidence = report.get("important_account_evidence") or []
+    if not evidence:
+        for ap in report.get("account_profiles") or []:
+            if ap.get("probable_role") not in (None, "unknown"):
+                evidence.append(ap)
+    for ap in evidence:
         lines.append(
             f"### {ap.get('account_id')} — {ap.get('probable_role')} "
             f"(confidence {ap.get('role_confidence')})"
@@ -538,11 +758,12 @@ def case_report_markdown(report: dict) -> str:
         for ev in ap.get("role_evidence") or []:
             lines.append(f"- {ev}")
         lines.append("")
+
     lines += [
         "## Disclaimer",
         report.get("disclaimer", ""),
         "",
-        f"_Generated at {report.get('generated_at')}_",
+        f"Generated at {report.get('generated_at')}",
     ]
     return "\n".join(lines)
 

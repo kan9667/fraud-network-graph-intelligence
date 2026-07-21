@@ -38,6 +38,7 @@ from src.dashboard_data import (
     case_report_markdown,
     case_transactions,
     compute_command_metrics,
+    format_inr,
     get_case_by_id,
     load_accounts_safe,
     load_cluster_results_raw,
@@ -45,6 +46,7 @@ from src.dashboard_data import (
     load_transactions_safe,
     mark_rapid_forwarding,
     primary_roles,
+    select_recommended_case,
     sort_cases,
     system_status,
     top_risk_factor_labels,
@@ -452,18 +454,6 @@ def money_flow_fields(case):
     }
 
 
-def format_inr(amount) -> str:
-    """Full INR display with thousand separators — never rounded or abbreviated.
-
-    Example: 1959542 → '₹1,959,542'
-    """
-    try:
-        value = int(amount or 0)
-    except (TypeError, ValueError):
-        value = 0
-    return f"₹{value:,}"
-
-
 def render_money_metric(label: str, amount) -> None:
     """Wide, non-truncating currency metric card (full amount always visible)."""
     st.markdown(
@@ -539,6 +529,23 @@ def render_sidebar(results, accounts, transactions):
         st.session_state.nav = nav
 
         st.divider()
+        recommended = select_recommended_case(results)
+        if recommended is not None:
+            st.markdown("**Demo mode**")
+            st.caption(
+                f"Recommended: {case_id(recommended['cluster_id'])} · "
+                f"{recommended.get('risk_level')} · score {recommended.get('risk_score')}"
+            )
+            if st.button(
+                "Open recommended case",
+                type="primary",
+                width="stretch",
+                key="sidebar_demo_case",
+            ):
+                select_case(recommended["cluster_id"], go_to="Network Investigation")
+                st.rerun()
+
+        st.divider()
         st.markdown("**Active case**")
         case_options = {
             f"{case_id(r['cluster_id'])} · {r.get('risk_level')} · score {r.get('risk_score')}": int(
@@ -596,7 +603,59 @@ def render_sidebar(results, accounts, transactions):
 
 def page_command_center(results, accounts, transactions):
     st.title("Command Center")
-    st.caption("Operational overview of algorithmically detected candidate networks")
+    st.caption(
+        "Operational overview of unsupervised fraud-network detection. "
+        "Start with the recommended case, then follow risk → network → money flow → evidence."
+    )
+
+    recommended = select_recommended_case(results)
+    if recommended is not None:
+        mf_rec = money_flow_fields(recommended)
+        with st.container(border=True):
+            d1, d2 = st.columns([3.2, 1])
+            with d1:
+                st.markdown(
+                    f"### Recommended investigation · {case_id(recommended['cluster_id'])}"
+                )
+                st.markdown(
+                    f"{risk_badge_html(recommended.get('risk_level'))} &nbsp; "
+                    f"Risk score {recommended.get('risk_score')} · "
+                    f"{recommended.get('size')} accounts · "
+                    f"internal {format_inr(mf_rec['internal'])} · "
+                    f"exit {format_inr(mf_rec['exit'])}",
+                    unsafe_allow_html=True,
+                )
+                st.caption(
+                    "Selected from detection outputs only (highest MEDIUM+ score with "
+                    "strongest volume / rapid-forward / role evidence). Not ground truth."
+                )
+            with d2:
+                if st.button(
+                    "Start investigation",
+                    type="primary",
+                    width="stretch",
+                    key="cmd_demo_start",
+                ):
+                    select_case(recommended["cluster_id"], go_to="Network Investigation")
+                    st.rerun()
+
+    with st.expander("Investigator workflow", expanded=False):
+        st.markdown(
+            """
+1. **Command Center** — pick the highest-priority case  
+2. **Network Investigation** — risk factors, structure, role map, graph  
+3. **Money Flow** — internal / exit volumes and paths  
+4. **Timeline** — chronological transfers, rapid forwards, exits  
+5. **Account Investigation** — single-account evidence  
+6. **Evidence** — narrative summary and downloadable case report  
+
+**How to read the UI**
+- **Risk score / level** — unsupervised cluster severity (0–100 / LOW–CRITICAL)  
+- **Probable roles** — algorithmic inference only, not confirmed identities  
+- **Evidence** — measurable facts from transactions and network structure  
+- **Interpretation** — for human investigators; the system does not assert guilt  
+"""
+        )
 
     metrics = compute_command_metrics(results, accounts, transactions)
     c1, c2, c3, c4 = st.columns(4)
@@ -633,7 +692,7 @@ def page_command_center(results, accounts, transactions):
         st.bar_chart(chart_df.set_index("Risk level"), height=280)
         for lvl, n in dist.items():
             st.markdown(
-                f"{risk_badge_html(lvl)} &nbsp; **{n}** network(s)",
+                f"{risk_badge_html(lvl)} &nbsp; {n} network(s)",
                 unsafe_allow_html=True,
             )
 
@@ -655,9 +714,9 @@ def page_command_center(results, accounts, transactions):
                 h1, h2 = st.columns([3, 1])
                 with h1:
                     st.markdown(
-                        f"**{case_id(r['cluster_id'])}** &nbsp; "
+                        f"{case_id(r['cluster_id'])} &nbsp; "
                         f"{risk_badge_html(r.get('risk_level'))} &nbsp; "
-                        f"Score **{r.get('risk_score')}**",
+                        f"Score {r.get('risk_score')}",
                         unsafe_allow_html=True,
                     )
                 with h2:
@@ -678,7 +737,9 @@ def page_command_center(results, accounts, transactions):
 
 def page_fraud_cases(results):
     st.title("Fraud Cases")
-    st.caption("Case queue of candidate networks sorted by investigative priority")
+    st.caption(
+        "Filterable case queue. Open a MEDIUM+ case to begin network investigation."
+    )
 
     f1, f2, f3, f4 = st.columns([1, 1, 1.2, 1.2])
     with f1:
@@ -793,10 +854,14 @@ def page_fraud_cases(results):
 def page_network(case, G):
     cid = case_id(case["cluster_id"])
     st.title(f"Network Investigation — {cid}")
+    st.caption(
+        "Cluster structure, risk factors, and algorithmically inferred roles. "
+        "Next: Money Flow → Timeline → Accounts → Evidence."
+    )
     st.markdown(
         f"{risk_badge_html(case.get('risk_level'))} &nbsp; "
-        f"**Risk score:** {case.get('risk_score')} &nbsp;·&nbsp; "
-        f"**{case.get('size')} accounts**",
+        f"Risk score: {case.get('risk_score')} · "
+        f"{case.get('size')} accounts",
         unsafe_allow_html=True,
     )
 
@@ -888,6 +953,10 @@ def page_network(case, G):
 
 def page_account(case, G, transactions):
     st.title("Account Investigation")
+    st.caption(
+        "Single-account evidence within the selected case. "
+        "Roles are algorithmic inferences, not confirmed identities."
+    )
     profiles = case.get("account_profiles") or []
     members = [p["account_id"] for p in profiles] or list(case.get("members", []))
     if not members:
@@ -971,7 +1040,10 @@ def page_account(case, G, transactions):
 
 def page_money_flow(case):
     st.title(f"Money Flow — {case_id(case['cluster_id'])}")
-    st.caption("Derived from actual transactions; paths are not invented")
+    st.caption(
+        "Volumes and paths derived from actual transactions only. "
+        "Account IDs are plain text; amounts show full INR values."
+    )
 
     mf = money_flow_fields(case)
     render_case_volume_metrics(mf, include_density=None)
@@ -1035,7 +1107,8 @@ def page_timeline(case, transactions):
     st.title(f"Timeline — {case_id(case['cluster_id'])}")
     st.caption(
         f"Chronological transactions for case members. "
-        f"Rapid forwarding window: {RAPID_FORWARDING_WINDOW_HOURS}h."
+        f"Rapid forwarding = inbound then outbound within {RAPID_FORWARDING_WINDOW_HOURS}h. "
+        "Exit flags mark funds leaving the active cluster core."
     )
 
     tx = case_transactions(case, transactions)
@@ -1125,16 +1198,22 @@ def page_timeline(case, transactions):
         st.bar_chart(daily.set_index("date"))
 
 
-def page_evidence(case):
+def page_evidence(case, transactions):
     st.title(f"Evidence — {case_id(case['cluster_id'])}")
+    st.caption(
+        "Investigator package for the selected case. "
+        "Download a JSON or Markdown report for demo / handoff."
+    )
     st.markdown(
         f"{risk_badge_html(case.get('risk_level'))} &nbsp; "
-        f"Risk score **{case.get('risk_score')}** · {case.get('size')} accounts",
+        f"Risk score {case.get('risk_score')} · {case.get('size')} accounts",
         unsafe_allow_html=True,
     )
     st.markdown(
         '<p class="disclaimer">All statements below are algorithmically inferred from '
-        "transaction and network structure. They are not determinations of guilt.</p>",
+        "transaction and network structure. They are not determinations of guilt. "
+        "Role labels are algorithmic inferences based on transaction and network "
+        "behavior and are not confirmed identities.</p>",
         unsafe_allow_html=True,
     )
 
@@ -1161,6 +1240,8 @@ def page_evidence(case):
     ]
     if not important:
         important = profiles[:8]
+    if not important:
+        st.caption("No role evidence available for this case.")
 
     for p in important:
         role = ROLE_DISPLAY.get(p.get("probable_role"), p.get("probable_role"))
@@ -1171,7 +1252,7 @@ def page_evidence(case):
                 st.markdown(f"- {ev}")
 
     st.subheader("Generate case report")
-    report = build_case_report(case)
+    report = build_case_report(case, transactions_df=transactions)
     md = case_report_markdown(report)
     j = json.dumps(report, indent=2, default=str)
 
@@ -1193,8 +1274,10 @@ def page_evidence(case):
             width="stretch",
         )
 
+    with st.expander("Preview Markdown report"):
+        st.markdown(md)
     with st.expander("Preview JSON report"):
-        st.code(j[:4000] + ("…" if len(j) > 4000 else ""), language="json")
+        st.code(j[:5000] + ("…" if len(j) > 5000 else ""), language="json")
 
 
 # ---------------------------------------------------------------------------
@@ -1228,7 +1311,7 @@ def main():
     elif nav == "Timeline":
         page_timeline(case, transactions)
     elif nav == "Evidence":
-        page_evidence(case)
+        page_evidence(case, transactions)
     else:
         page_command_center(results, accounts, transactions)
 
