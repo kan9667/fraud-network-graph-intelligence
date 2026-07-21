@@ -1,0 +1,12 @@
+{
+  "total_accounts": 228,
+  "actual_fraud": 28,
+  "flagged": 28,
+  "true_positives": 28,
+  "false_positives": 0,
+  "false_negatives": 0,
+  "true_negatives": 200,
+  "precision": 1.0,
+  "recall": 1.0,
+  "f1": 1.0
+}
