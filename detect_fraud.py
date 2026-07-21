@@ -1,100 +1,123 @@
-import csv
+import json
+import shutil
+from pathlib import Path
 import networkx as nx
 from networkx.algorithms.community import louvain_communities
-from collections import defaultdict
 
-# --- Step 1: load the data we generated ---
-accounts = {}
-with open("accounts.csv") as f:
-    for row in csv.DictReader(f):
-        accounts[row["account_id"]] = row
+from src.config import (
+    BASE_DIR,
+    DATA_DIR,
+    OUTPUT_DIR,
+    ACCOUNTS_FILE,
+    TRANSACTIONS_FILE,
+    GRAPH_FILE,
+    CLUSTER_RESULTS_FILE,
+    LOUVAIN_SEED,
+    MIN_CLUSTER_SIZE,
+)
+from src.loader import load_accounts, load_transactions, load_accounts_with_validation
+from src.graph_builder import build_graph, save_graph
+from src.features import extract_cluster_features
+from src.risk_scorer import score_cluster
+from src.role_classifier import classify_cluster_roles
+from src.money_flow import summarize_cluster_money_flow
 
-transactions = []
-with open("transactions.csv") as f:
-    for row in csv.DictReader(f):
-        transactions.append(row)
+DATA_DIR.mkdir(parents=True, exist_ok=True)
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-# --- Step 2: build the graph ---
-# Every account is a "node". We draw a "edge" (connection) between two
-# accounts if they transacted with each other, OR if they share a phone/device.
-G = nx.Graph()
+root_accounts = BASE_DIR / "accounts.csv"
+root_transactions = BASE_DIR / "transactions.csv"
+if not ACCOUNTS_FILE.exists() and root_accounts.exists():
+    shutil.copy2(root_accounts, ACCOUNTS_FILE)
+    print(f"Copied {root_accounts} \u2192 {ACCOUNTS_FILE}")
+if not TRANSACTIONS_FILE.exists() and root_transactions.exists():
+    shutil.copy2(root_transactions, TRANSACTIONS_FILE)
+    print(f"Copied {root_transactions} \u2192 {TRANSACTIONS_FILE}")
 
-for acc_id in accounts:
-    G.add_node(acc_id)
+accounts_df = load_accounts()
+transactions_df = load_transactions()
+load_accounts_with_validation(accounts_df, transactions_df)
 
-# edges from transactions (weighted by how much money / how many times)
-edge_weights = defaultdict(int)
-for tx in transactions:
-    a, b = tx["from_account"], tx["to_account"]
-    key = tuple(sorted([a, b]))
-    edge_weights[key] += 1
-
-for (a, b), weight in edge_weights.items():
-    G.add_edge(a, b, weight=weight)
-
-# edges from shared phone/device — this is the strongest fraud signal
-by_phone = defaultdict(list)
-by_device = defaultdict(list)
-for acc_id, info in accounts.items():
-    by_phone[info["phone"]].append(acc_id)
-    by_device[info["device_id"]].append(acc_id)
-
-for group in list(by_phone.values()) + list(by_device.values()):
-    if len(group) > 1:
-        for i in range(len(group)):
-            for j in range(i + 1, len(group)):
-                # a shared phone/device is a much stronger signal than one transaction,
-                # so give it more weight
-                G.add_edge(group[i], group[j], weight=10)
+G = build_graph(accounts_df, transactions_df)
 
 print(f"Graph built: {G.number_of_nodes()} nodes, {G.number_of_edges()} edges")
 
-# --- Step 3: run community detection ---
-# This automatically groups nodes that are much more tightly connected to
-# each other than to the rest of the graph — exactly what a fraud ring looks like.
-communities = louvain_communities(G, weight="weight", seed=42)
+save_graph(G, GRAPH_FILE)
+print(f"Graph saved to {GRAPH_FILE}")
 
+communities = louvain_communities(G, weight="weight", seed=LOUVAIN_SEED)
 print(f"\nFound {len(communities)} clusters total.\n")
 
-# --- Step 4: score each cluster and check against the "answer key" ---
 results = []
 for idx, cluster in enumerate(communities):
-    if len(cluster) < 3:
-        continue  # skip tiny/singleton clusters, not interesting
+    if len(cluster) < MIN_CLUSTER_SIZE:
+        continue
 
     subgraph = G.subgraph(cluster)
-    total_volume = sum(
-        int(tx["amount"]) for tx in transactions
-        if tx["from_account"] in cluster and tx["to_account"] in cluster
-    )
     density = nx.density(subgraph)
 
-    # this is our "answer key" check — in a real system you would NOT know this,
-    # it's only here so you can measure your own accuracy
-    true_labels = [accounts[a]["is_fraud_ring"] for a in cluster]
-    majority_label = max(set(true_labels), key=true_labels.count)
+    members_set = set(cluster)
+    internal_mask = (
+        transactions_df["from_account"].isin(members_set)
+        & transactions_df["to_account"].isin(members_set)
+    )
+    total_volume = int(transactions_df.loc[internal_mask, "amount"].sum())
+
+    features = extract_cluster_features(members_set, G, accounts_df, transactions_df)
+    risk = score_cluster(members_set, features, G)
+    account_profiles, role_summary, network_structure_summary = classify_cluster_roles(
+        members_set,
+        G,
+        accounts_df,
+        transactions_df,
+        cluster_risk_score=risk["risk_score"],
+        cluster_risk_level=risk["risk_level"],
+    )
+    role_by_account = {
+        p["account_id"]: p["probable_role"] for p in account_profiles
+    }
+    flow_summary = summarize_cluster_money_flow(
+        members_set,
+        transactions_df,
+        role_by_account=role_by_account,
+    )
 
     results.append({
         "cluster_id": idx,
         "size": len(cluster),
         "density": round(density, 2),
         "internal_volume": total_volume,
-        "true_label_majority": majority_label,
-        "members": list(cluster)
+        "members": list(cluster),
+        "risk_score": risk["risk_score"],
+        "risk_level": risk["risk_level"],
+        "risk_factors": risk["risk_factors"],
+        "feature_scores": risk["feature_scores"],
+        "features": features,
+        "explanation": risk["explanation"],
+        "account_profiles": account_profiles,
+        "role_summary": role_summary,
+        "network_structure_summary": network_structure_summary,
+        "money_flow": flow_summary["money_flow"],
+        "money_flow_paths": flow_summary["money_flow_paths"],
     })
 
-# sort by internal transaction volume — highest first (most suspicious)
-results.sort(key=lambda r: r["internal_volume"], reverse=True)
+results.sort(key=lambda r: (-r["risk_score"], -r["internal_volume"]))
 
-print("Top clusters by internal transaction volume (most suspicious first):\n")
-for r in results[:8]:
-    print(f"Cluster {r['cluster_id']}: {r['size']} accounts | "
-          f"density={r['density']} | volume=₹{r['internal_volume']:,} | "
-          f"true label majority: {r['true_label_majority']}")
+print("Clusters ranked by risk score:\n")
+for r in results:
+    summary = r.get("role_summary", {})
+    roles = ", ".join(
+        f"{k}:{v}" for k, v in summary.items() if v > 0
+    )
+    print(f"  Cluster {r['cluster_id']}: risk={r['risk_score']} ({r['risk_level']}) | "
+          f"{r['size']} accounts | density={r['density']} | volume=\u20b9{r['internal_volume']:,} | "
+          f"{r.get('network_structure_summary', '')}")
 
-# save full results for the dashboard to use later
-import json
-with open("cluster_results.json", "w") as f:
+with open(CLUSTER_RESULTS_FILE, "w") as f:
     json.dump(results, f, indent=2)
+print(f"\nSaved enriched results to {CLUSTER_RESULTS_FILE}")
 
-print("\nSaved detailed results to cluster_results.json")
+root_results = BASE_DIR / "cluster_results.json"
+with open(root_results, "w") as f:
+    json.dump(results, f, indent=2)
+print(f"Saved compatibility copy to {root_results}")

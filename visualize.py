@@ -1,75 +1,91 @@
-import csv
+"""CLI visualization of the full fraud graph (legacy entrypoint).
+
+Prefer the Streamlit Command Center (app.py) for investigation.
+This script remains for offline HTML export of the full network.
+"""
+
 import json
-import networkx as nx
+from pathlib import Path
+
 from pyvis.network import Network
 
-# --- load everything we already built ---
-accounts = {}
-with open("accounts.csv") as f:
-    for row in csv.DictReader(f):
-        accounts[row["account_id"]] = row
+from src.config import (
+    BASE_DIR,
+    OUTPUT_DIR,
+    CLUSTER_RESULTS_FILE,
+    GRAPH_FILE,
+    FRAUD_GRAPH_HTML,
+)
+from src.graph_builder import load_graph
+from src.dashboard_data import ROLE_COLORS, RISK_COLORS, strip_forbidden
 
-transactions = []
-with open("transactions.csv") as f:
-    for row in csv.DictReader(f):
-        transactions.append(row)
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-with open("cluster_results.json") as f:
-    cluster_results = json.load(f)
 
-# build a lookup: account_id -> which suspicious cluster it belongs to (if any)
-account_to_cluster = {}
-for cluster in cluster_results:
-    if cluster["size"] < 200:  # skip the giant "normal" cluster, only color the small dense ones
-        for member in cluster["members"]:
-            account_to_cluster[member] = cluster["cluster_id"]
+def main():
+    results_path = CLUSTER_RESULTS_FILE
+    if not results_path.exists():
+        results_path = BASE_DIR / "cluster_results.json"
+    graph_path = GRAPH_FILE
+    if not graph_path.exists():
+        raise SystemExit(f"Graph not found at {GRAPH_FILE}. Run detect_fraud.py first.")
 
-# a distinct color per fraud cluster; gray for everyone else
-colors = ["#e74c3c", "#e67e22", "#9b59b6", "#c0392b", "#d35400", "#8e44ad"]
+    with open(results_path) as f:
+        cluster_results = strip_forbidden(json.load(f))
 
-# --- rebuild the graph exactly like detect_fraud.py did ---
-G = nx.Graph()
-for acc_id in accounts:
-    G.add_node(acc_id)
+    G = load_graph(graph_path)
 
-from collections import defaultdict
-edge_weights = defaultdict(int)
-for tx in transactions:
-    a, b = tx["from_account"], tx["to_account"]
-    key = tuple(sorted([a, b]))
-    edge_weights[key] += 1
-for (a, b), w in edge_weights.items():
-    G.add_edge(a, b, weight=w)
+    # Map accounts -> highest-risk case and role
+    account_meta = {}
+    for cluster in cluster_results:
+        role_map = {
+            p["account_id"]: p.get("probable_role", "unknown")
+            for p in cluster.get("account_profiles", [])
+        }
+        for member in cluster.get("members", []):
+            prev = account_meta.get(member)
+            score = float(cluster.get("risk_score", 0) or 0)
+            if prev is None or score > prev["risk_score"]:
+                account_meta[member] = {
+                    "cluster_id": cluster["cluster_id"],
+                    "risk_score": score,
+                    "risk_level": cluster.get("risk_level", "LOW"),
+                    "role": role_map.get(member, "unknown"),
+                }
 
-by_phone = defaultdict(list)
-by_device = defaultdict(list)
-for acc_id, info in accounts.items():
-    by_phone[info["phone"]].append(acc_id)
-    by_device[info["device_id"]].append(acc_id)
-for group in list(by_phone.values()) + list(by_device.values()):
-    if len(group) > 1:
-        for i in range(len(group)):
-            for j in range(i + 1, len(group)):
-                G.add_edge(group[i], group[j], weight=10)
+    net = Network(height="800px", width="100%", bgcolor="#0f1419", font_color="white")
+    net.barnes_hut()
 
-# --- build the interactive visualization ---
-net = Network(height="800px", width="100%", bgcolor="#1a1a1a", font_color="white")
-net.barnes_hut()  # physics engine that spreads nodes out naturally
+    for node in G.nodes():
+        meta = account_meta.get(node)
+        if meta and str(meta["risk_level"]).upper() in {"MEDIUM", "HIGH", "CRITICAL"}:
+            color = ROLE_COLORS.get(meta["role"], ROLE_COLORS["unknown"])
+            size = 22
+            title = (
+                f"{node} — CASE-{int(meta['cluster_id']):03d} "
+                f"({meta['risk_level']}) · {meta['role']}"
+            )
+        elif meta:
+            color = "#566573"
+            size = 12
+            title = f"{node} — CASE-{int(meta['cluster_id']):03d} (LOW)"
+        else:
+            color = "#3d4f5f"
+            size = 8
+            title = f"{node}"
+        net.add_node(node, label="", title=title, color=color, size=size)
 
-for node in G.nodes():
-    if node in account_to_cluster:
-        cluster_id = account_to_cluster[node]
-        color = colors[cluster_id % len(colors)]
-        size = 25
-        title = f"{node} — FLAGGED (cluster {cluster_id})"
-    else:
-        color = "#7f8c8d"  # gray = normal account
-        size = 10
-        title = f"{node} — normal"
-    net.add_node(node, label="", title=title, color=color, size=size)
+    for u, v, data in G.edges(data=True):
+        net.add_edge(u, v, value=data.get("weight", 1))
 
-for u, v, data in G.edges(data=True):
-    net.add_edge(u, v, value=data.get("weight", 1))
+    out = FRAUD_GRAPH_HTML
+    net.write_html(str(out), open_browser=False, notebook=False)
+    # compatibility copy at repo root
+    root_html = BASE_DIR / "fraud_graph.html"
+    root_html.write_text(out.read_text(encoding="utf-8"), encoding="utf-8")
+    print(f"Saved visualization to {out}")
+    print(f"Saved compatibility copy to {root_html}")
 
-net.show("fraud_graph.html", notebook=False)
-print("Saved visualization to fraud_graph.html")
+
+if __name__ == "__main__":
+    main()

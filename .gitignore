@@ -1,5 +1,37 @@
+# Virtual environment
 venv/
+.venv/
+env/
+
+# Python cache
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+
+# macOS
 .DS_Store
 
+# Generated data
+data/accounts.csv
+data/transactions.csv
+data/ground_truth_roles.csv
+
+# Generated outputs
+output/graph.gpickle
+output/cluster_results.json
+output/metrics.json
+output/fraud_graph.html
+output/evaluation_report.json
+output/evaluation_report.md
+
+# Root compatibility/generated files
+cluster_results.json
+metrics.json
+fraud_graph.html
+
+# Environment / secrets
+.env
+
+# IDE files
+.vscode/
+.idea/

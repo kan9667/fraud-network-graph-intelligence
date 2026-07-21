@@ -3,3 +3,6 @@ networkx
 pyvis
 streamlit
 faker
+scikit-learn
+python-dotenv
+pytest
