@@ -2,6 +2,8 @@
 
 **Unsupervised graph-based intelligence for coordinated fraud rings — built for investigators, not black-box scores.**
 
+M.V.P - https://kan9667-fraud-network-graph-intelligence-app-59zwzv.streamlit.app
+
 ---
 
 ## Problem
